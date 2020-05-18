@@ -1,12 +1,19 @@
+# folders
+/.vs
+/.vscode
 /build
+/CMakeFiles
+/dep
 /dist
+/out
 /plugin.so
 /plugin.dylib
 /plugin.dll
+
+# files
 .DS_Store
-/.vs
-/.vscode
-/out
-/dep
-*.ai
+
+# file masks
 *.bak
+*.dll
+*.exe

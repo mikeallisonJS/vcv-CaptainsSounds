@@ -20,14 +20,6 @@
       "tags": [
         "Oscillator"
       ]
-    },
-    {
-      "slug": "VCOh",
-      "name": "VCOh",
-      "description": "",
-      "tags": [
-        "Oscillator"
-      ]
     }
   ]
 }
