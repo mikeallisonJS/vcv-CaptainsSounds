@@ -1,0 +1,33 @@
+{
+  "slug": "CaptainsSounds",
+  "name": "Captains Sounds",
+  "version": "1.1.6",
+  "license": "proprietary",
+  "brand": "Captains Sounds",
+  "author": "Captain",
+  "authorEmail": "mike@captainssounds.com",
+  "authorUrl": "captainofbass.com",
+  "pluginUrl": "captainssounds.com",
+  "manualUrl": "",
+  "sourceUrl": "",
+  "donateUrl": "captainofbass.com/donate",
+  "changelogUrl": "",
+  "modules": [
+    {
+      "slug": "VBNO",
+      "name": "VBNO",
+      "description": "Voice By Note Oscillator",
+      "tags": [
+        "Oscillator"
+      ]
+    },
+    {
+      "slug": "VCOh",
+      "name": "VCOh",
+      "description": "",
+      "tags": [
+        "Oscillator"
+      ]
+    }
+  ]
+}
