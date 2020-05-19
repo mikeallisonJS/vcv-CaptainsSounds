@@ -73,13 +73,8 @@ namespace captainssounds{
     const int INPUT_JACK_Y_OFFSET = 30;
 
     const int INPUT_COLUMN_OFFSET = 82;
-    const int INPUT_COLUMN_1_POS = 8;
+    const int INPUT_COLUMN_1_POS = 9;
     const int INPUT_JACK_X_OFFSET = 2;
-
-    const int OUTPUT_ROW_OFFSET = 35;
-    const int OUTPUT_ROW_1_POS = 320;
-    const int OUTPUT_COLUMN_OFFSET = 35;
-    const int OUTPUT_COLUMN_1_POS = 10;
 
     Vec paramInputJackVec (int column, int row) {
         return Vec(
@@ -93,13 +88,6 @@ namespace captainssounds{
                 (column * INPUT_COLUMN_OFFSET) + INPUT_COLUMN_1_POS,
                 (row * INPUT_ROW_OFFSET) + INPUT_ROW_1_POS
             );
-    }
-
-    Vec outputVec(int column, int row) {
-        return Vec(
-            (column * OUTPUT_COLUMN_OFFSET) + OUTPUT_COLUMN_1_POS,
-                (row * OUTPUT_ROW_OFFSET) + OUTPUT_ROW_1_POS
-        );
     }
 }
 
