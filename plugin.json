@@ -22,6 +22,14 @@
         "Oscillator",
         "Tuner"
       ]
+    },
+    {
+      "slug": "Dip",
+      "name": "Dip",
+      "description": "Parallel High-pass & Low-pass filter. Like a notch filter on sterioids. ",
+      "tags": [
+        "Filter"
+      ]
     }
   ]
 }
