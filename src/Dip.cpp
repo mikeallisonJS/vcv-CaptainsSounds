@@ -1,12 +1,13 @@
 #include <math.h> 
 #include "plugin.hpp"
 #include "dsp.hpp"
-#include "VBNO.hpp"
+#include "Dip.hpp"
 
 using namespace captainssounds;
 
 //VBNO Oscillator
-void VBNO::Oscillator::process(float modelSampleTime) {
+void Dip::Filter::process(float modelSampleTime) {
+
 	// Calculate internal sampleTime
 	if (sampleTime == 2.f) {
 		sampleTime = 0.f;
@@ -21,37 +22,21 @@ void VBNO::Oscillator::process(float modelSampleTime) {
 	if (phase >= 0.5f)
 		phase--;
 }
-void VBNO::Oscillator::sync() {
-	sampleTime = 2.f; // bogus value to force offset calc
-}
-float VBNO::Oscillator::buildWave() {
-	switch (selectedWave) {
-		case 1:
-			return dsp::triangle(phase);	
-		case 2:
-			return dsp::saw(phase);	
-		case 3:
-			return dsp::square(phase, 0.5f);
-		default:
-			return dsp::sine(phase);
-	}	
-}
-float VBNO::Oscillator::getVoltage() {
-	return 5.f * buildWave();
-}
 
-void VBNO::process(const ProcessArgs& args) {
-	// Check for sync signal
-	if (inputs[SYNC_INPUT].getVoltage() > 0.f)
-		osc.sync();
+
+void Dip::process(const ProcessArgs& args) {
+	//don't waste time if there is no input
+	if(!inputs[INPUT].isConnected())
+		return;
 
 	
-	// Use Octave CV if connected
-	if(inputs[OCTAVE_INPUT].isConnected()) {
-		octaveInputV = inputs[OCTAVE_INPUT].getVoltage();	
-		octavesFromA4 = round(octaveInputV) - 2;
+	// Use Low pass CV if connected
+	if(inputs[LP_INPUT].isConnected()) {		
+		lpInputV = inputs[LP_INPUT].getVoltage();
+		
+		lpFilter.frequency = pow((lpInputV * 10), ) //10v to 100%
 	} else {
-		octavesFromA4 = params[OCTAVE_PARAM].getValue() - 1; //TODO: FIND 1 off???
+		lpFilter.frequency = params[LP_PARAM].getValue();
 	}
 
 	// Use Note CV if connected

@@ -8,14 +8,15 @@ using namespace captainssounds;
 namespace captainssounds{
     struct Dip : Module {
         struct Filter {
-            float highpassfrequency;
-            float lowpassfrequency;
+            const float maxFrequency = 22000.f;
+            const float minFrequency = 10.f;
+            float frequency;
             float phase;
             float sampleRate;
             float sampleTime;
             float sampleOffset;
             float Q;
-            float resonance;
+            float slope;
             
             Filter() {
             }
@@ -24,11 +25,16 @@ namespace captainssounds{
         enum ParamIds {
             LP_PARAM,
             HP_PARAM,
-            WAVE_PARAM,
+            Q_PARAM,
+            SLOPE_PARAM,
             NUM_PARAMS
         };
         enum InputIds {
             INPUT,
+            LP_INPUT,
+            HP_INPUT,
+            Q_INPUT,
+            SLOPE_INPUT,
             NUM_INPUTS
         };
         enum OutputIds {
@@ -36,21 +42,19 @@ namespace captainssounds{
             NUM_OUTPUTS
         };
 
-        Oscillator osc;
-        float semitones;
-        float octavesFromA4;
-        float octaveInputV;
-        float notesFromA;
-        float noteInputV;
-        float waveInputV;
+        Filter lpFilter;
+        Filter hpFilter;
+        float lpInputV
 
-        VBNO() {
-            octavesFromA4 = -1.f; // C4
-            notesFromA = 3.f; // C
+
+        Dip() {
+            lpFilter.frequency = 22000.f;
+            hpFilter.frequency = 10.f;
             config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS);
-            configParam(OCTAVE_PARAM, -5.f, 3.f, octavesFromA4, "Octave");
-            configParam(NOTE_PARAM, 0.f, 11.f, notesFromA, "Base note");
-            configParam(WAVE_PARAM, 0.f, (osc.NUM_WAVES - 1), (osc.selectedWave), "Wave shape");
+            configParam(LP_PARAM, 10.f, 22000.f, lpFilter.frequency, "Low pass frequency", "Hz", 1.f, dsp::FREQ_C4 / std::pow(2, 5.f)));
+            configParam(HP_PARAM, 10.f, 22000.f, hpFilter.frequency, "High pass frequency", "Hz", 1.f, dsp::FREQ_C4 / std::pow(2, 5.f)));
+            configParam(Q_PARAM, 0.010f, 40.f, 1.f, "Q - Bandwidth", "", 1.00f, 1.009f);
+            configParam(SLOPE_PARAM, 6.f, 96.f, 18.f, "Slope", "dB/oct", 1.f);
         }
 
         void process(const ProcessArgs& args) override;
@@ -91,4 +95,4 @@ namespace captainssounds{
     }
 }
 
-extern Model* modelVBNO;
+extern Model* modelDip;
