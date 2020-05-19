@@ -22,11 +22,4 @@ DISTRIBUTABLES += $(wildcard LICENSE*)
 include $(RACK_DIR)/plugin.mk
 
 # Dependencies
-DEPS += $(libsamplerate)
-
-$(libsamplerate):
-	$(WGET) https://github.com/kfrlib/kfr/archive/4.2.0.tar.gz -o kfr.tar.gz
-	cd dep && $(UNTAR) ../kfr.tar.gz
-	cd dep/kfr && $(CONFIGURE)
-	cd dep/kfr && $(MAKE)
-	cd dep/kfr && $(MAKE) install
+DEPS +=
