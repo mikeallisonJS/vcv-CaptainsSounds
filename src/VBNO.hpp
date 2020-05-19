@@ -54,7 +54,7 @@ namespace captainssounds{
         float octaveInputV;
         float notesFromA;
         float noteInputV;
-        
+        float waveInputV;
 
         VBNO() {
             octavesFromA4 = -1.f; // C4

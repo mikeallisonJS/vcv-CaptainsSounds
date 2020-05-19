@@ -71,8 +71,16 @@ void VBNO::process(const ProcessArgs& args) {
 	osc.process(args.sampleTime);
 	
 
+	// Use Wave CV if connected 0-10v
+	if (inputs[WAVE_INPUT].isConnected()) {
+		float waveInputV = round(inputs[WAVE_INPUT].getVoltage());
+		float waveAdjustedV = clamp(floor(.4f * waveInputV), 0.f, 3.f); //4 choices, 10volts
+		osc.selectedWave = waveAdjustedV;
+	} else {
+		osc.selectedWave = params[WAVE_PARAM].getValue();
+	}
+
 	// Output selected wave pattern
-	osc.selectedWave = params[WAVE_PARAM].getValue();
 	outputs[OUTPUT].setVoltage(osc.getVoltage());
 					
 }
