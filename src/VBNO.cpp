@@ -92,8 +92,8 @@ struct VBNOWidget : ModuleWidget {
 		setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/VBNO.svg")));
 
 		//Screws
-		addChild(createWidget<ScrewBlack>(Vec(box.size.x/3, 0)));
-		addChild(createWidget<ScrewBlack>(Vec(box.size.x/3, 365)));
+		addChild(createWidget<ScrewBlack>(Vec(box.size.x/3, SCREW_TOP_Y_POS)));
+		addChild(createWidget<ScrewBlack>(Vec(box.size.x/3, SCREW_BOTTOM_Y_POS)));
 
 		// Octave
 		addParam(createParam<Round909SnapKnob>(paramVec(0, 0), module, VBNO::OCTAVE_PARAM));

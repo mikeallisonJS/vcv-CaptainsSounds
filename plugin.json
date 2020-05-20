@@ -14,6 +14,30 @@
   "changelogUrl": "https://github.com/mikeallisonJS/vcv-CaptainsSounds/CHANGELOG.md",
   "modules": [
     {
+      "slug": "Blank901",
+      "name": "Blank 901",
+      "description": "1HP Blank 90h theme",
+      "tags": [
+        "Blank"
+      ]
+    },
+    {
+      "slug": "Blank902",
+      "name": "Blank 902",
+      "description": "2HP Blank 90h theme",
+      "tags": [
+        "Blank"
+      ]
+    },
+    {
+      "slug": "Blank904",
+      "name": "Blank 904",
+      "description": "4HP Blank 90h theme",
+      "tags": [
+        "Blank"
+      ]
+    },
+    {
       "slug": "VBNO",
       "name": "VBNO - Voice By Note Oscillator",
       "description": "Oscillator with locked pitch by octave & note. Also allows for v/oct overrides rounding voltage to nearest octave or note.",
