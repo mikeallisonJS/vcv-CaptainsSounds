@@ -23,5 +23,11 @@ namespace captainssounds {
 		        setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Components/Round909Jack.svg")));
             }
 	    };
+
+        struct CSLogo : app::SvgScrew {
+            CSLogo() {
+                setSvg(APP->window->loadSvg(asset::system("res/CSlogo.svg")));
+            }
+        };
     }
 }
