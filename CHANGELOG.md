@@ -1,4 +1,4 @@
-### 1.0.2 (5/19/2020)
+### 1.0.2 (5/20/2020)
 - Added custom knobs & inputs
 - Added Blank901, Blank902, Blank904 Blank Panels
 
