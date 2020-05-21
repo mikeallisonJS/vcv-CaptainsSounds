@@ -10,12 +10,13 @@ namespace captainssounds{
         struct Filter {
             const float maxFrequency = 22000.f;
             const float minFrequency = 10.f;
+            //TODO: Add exponential param values const
             float frequency;
             float phase;
             float sampleRate;
             float sampleTime;
             float sampleOffset;
-            float Q;
+            float q;
             float slope;
             
             Filter() {
@@ -44,55 +45,23 @@ namespace captainssounds{
 
         Filter lpFilter;
         Filter hpFilter;
-        float lpInputV
+        float lpInputV;
+        float hpInputV;
+        float qInputV;
 
 
         Dip() {
             lpFilter.frequency = 22000.f;
             hpFilter.frequency = 10.f;
             config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS);
-            configParam(LP_PARAM, 10.f, 22000.f, lpFilter.frequency, "Low pass frequency", "Hz", 1.f, dsp::FREQ_C4 / std::pow(2, 5.f)));
-            configParam(HP_PARAM, 10.f, 22000.f, hpFilter.frequency, "High pass frequency", "Hz", 1.f, dsp::FREQ_C4 / std::pow(2, 5.f)));
+            configParam(LP_PARAM, 10.f, 22000.f, lpFilter.frequency, "Low pass frequency", "Hz", 1.f, rack::dsp::FREQ_C4 / std::pow(2, 5.f));
+            configParam(HP_PARAM, 10.f, 22000.f, hpFilter.frequency, "High pass frequency", "Hz", 1.f, rack::dsp::FREQ_C4 / std::pow(2, 5.f));
             configParam(Q_PARAM, 0.010f, 40.f, 1.f, "Q - Bandwidth", "", 1.00f, 1.009f);
-            configParam(SLOPE_PARAM, 6.f, 96.f, 18.f, "Slope", "dB/oct", 1.f);
+            configParam(SLOPE_PARAM, 6.f, 96.f, 18.f, "Slope", "dB/oct", 1.f, 1.f, 6.f); // db increments
         }
 
         void process(const ProcessArgs& args) override;
     };
-
-    const int INPUT_ROW_OFFSET = 70;
-    const int INPUT_ROW_1_POS = 40;
-    const int INPUT_JACK_Y_OFFSET = 30;
-
-    const int INPUT_COLUMN_OFFSET = 82;
-    const int INPUT_COLUMN_1_POS = 8;
-    const int INPUT_JACK_X_OFFSET = 2;
-
-    const int OUTPUT_ROW_OFFSET = 35;
-    const int OUTPUT_ROW_1_POS = 320;
-    const int OUTPUT_COLUMN_OFFSET = 35;
-    const int OUTPUT_COLUMN_1_POS = 10;
-
-    Vec paramInputJackVec (int column, int row) {
-        return Vec(
-            (column * INPUT_COLUMN_OFFSET + INPUT_JACK_X_OFFSET) + INPUT_COLUMN_1_POS,
-            (row * INPUT_ROW_OFFSET) + INPUT_ROW_1_POS + INPUT_JACK_Y_OFFSET
-        );
-    }
-
-    Vec paramVec (int column, int row) {
-            return Vec(
-                (column * INPUT_COLUMN_OFFSET) + INPUT_COLUMN_1_POS,
-                (row * INPUT_ROW_OFFSET) + INPUT_ROW_1_POS
-            );
-    }
-
-    Vec outputVec(int column, int row) {
-        return Vec(
-            (column * OUTPUT_COLUMN_OFFSET) + OUTPUT_COLUMN_1_POS,
-                (row * OUTPUT_ROW_OFFSET) + OUTPUT_ROW_1_POS
-        );
-    }
 }
 
 extern Model* modelDip;

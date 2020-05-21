@@ -67,28 +67,6 @@ namespace captainssounds{
 
         void process(const ProcessArgs& args) override;
     };
-
-    const int INPUT_ROW_OFFSET = 70;
-    const int INPUT_ROW_1_POS = 40;
-    const int INPUT_JACK_Y_OFFSET = 30;
-
-    const int INPUT_COLUMN_OFFSET = 82;
-    const int INPUT_COLUMN_1_POS = 9;
-    const int INPUT_JACK_X_OFFSET = 2;
-
-    Vec paramInputJackVec (int column, int row) {
-        return Vec(
-            (column * INPUT_COLUMN_OFFSET + INPUT_JACK_X_OFFSET) + INPUT_COLUMN_1_POS,
-            (row * INPUT_ROW_OFFSET) + INPUT_ROW_1_POS + INPUT_JACK_Y_OFFSET
-        );
-    }
-
-    Vec paramVec (int column, int row) {
-            return Vec(
-                (column * INPUT_COLUMN_OFFSET) + INPUT_COLUMN_1_POS,
-                (row * INPUT_ROW_OFFSET) + INPUT_ROW_1_POS
-            );
-    }
 }
 
 extern Model* modelVBNO;

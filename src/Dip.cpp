@@ -5,7 +5,7 @@
 
 using namespace captainssounds;
 
-//VBNO Oscillator
+//Dip Filter
 void Dip::Filter::process(float modelSampleTime) {
 
 	// Calculate internal sampleTime
@@ -33,71 +33,82 @@ void Dip::process(const ProcessArgs& args) {
 	// Use Low pass CV if connected
 	if(inputs[LP_INPUT].isConnected()) {		
 		lpInputV = inputs[LP_INPUT].getVoltage();
-		
-		lpFilter.frequency = pow((lpInputV * 10), ) //10v to 100%
+		// TODO: figure this shit out		
+		// lpFilter.frequency = pow((lpInputV * 10), ); //10v to 100%
 	} else {
 		lpFilter.frequency = params[LP_PARAM].getValue();
 	}
 
-	// Use Note CV if connected
-	if(inputs[NOTE_INPUT].isConnected()) {
-		noteInputV = inputs[NOTE_INPUT].getVoltage();
-		float note = round(modf(noteInputV, nullptr) * 12) + 3;
-		notesFromA = note <= 11 ? note : note + 9;
+	// Use HP CV if connected
+	if(inputs[HP_INPUT].isConnected()) {
+		hpInputV = inputs[HP_INPUT].getVoltage();
+		// hpFilter.frequency = pow((hpInputV * 10), ); //10v to 100%
 	} else {
-		notesFromA = params[NOTE_PARAM].getValue();
+		hpFilter.frequency = params[LP_PARAM].getValue();
 	}
-	
-	// Generate Frequency from Oct & Note
-	osc.frequency = dsp::calculateFrequencyFromFromA4(octavesFromA4, notesFromA);
+
+	// Use Q CV if connected
+	if(inputs[Q_INPUT].isConnected()) {
+		qInputV = inputs[Q_INPUT].getVoltage();
+		// hpFilter.frequency = pow((hpInputV * 10), ); //10v to 100%
+	} else {
+		hpFilter.q = params[Q_PARAM].getValue();
+		lpFilter.q = params[Q_PARAM].getValue();
+	}
+
+	// Use Slope CV if connected
+	if(inputs[SLOPE_INPUT].isConnected()) {
+		qInputV = inputs[SLOPE_INPUT].getVoltage();
+		// hpFilter.frequency = pow((hpInputV * 10), ); //10v to 100%
+	} else {
+		hpFilter.slope = params[SLOPE_PARAM].getValue();
+		lpFilter.slope = params[SLOPE_PARAM].getValue();
+	}
 	
 	// Process the current sample
-	osc.sampleRate = args.sampleRate;
-	osc.process(args.sampleTime);
+	lpFilter.sampleRate = args.sampleRate;
+	lpFilter.process(args.sampleTime);
+	hpFilter.sampleRate = args.sampleRate;
+	hpFilter.process(args.sampleRate);
 	
 
-	// Use Wave CV if connected 0-10v
-	if (inputs[WAVE_INPUT].isConnected()) {
-		float waveInputV = round(inputs[WAVE_INPUT].getVoltage());
-		float waveAdjustedV = clamp(floor(.4f * waveInputV), 0.f, 3.f); //4 choices, 10volts
-		osc.selectedWave = waveAdjustedV;
-	} else {
-		osc.selectedWave = params[WAVE_PARAM].getValue();
-	}
-
 	// Output selected wave pattern
-	outputs[OUTPUT].setVoltage(osc.getVoltage());
+	// outputs[OUTPUT].setVoltage(hpFilter.getVoltage());
 					
 }
 
-struct VBNOWidget : ModuleWidget {
-	VBNOWidget(VBNO* module) {
+struct DipWidget : ModuleWidget {
+	DipWidget(Dip* module) {
 		setModule(module);
-		setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/VBNO.svg")));
+		setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Dip.svg")));
 
-		//Screws
+		// Screws
 		addChild(createWidget<ScrewBlack>(Vec(box.size.x/3, 0)));
 		addChild(createWidget<ScrewBlack>(Vec(box.size.x/3, 365)));
 
-		// Octave
-		addParam(createParam<RoundBlackSnapKnob>(paramVec(0, 0), module, VBNO::OCTAVE_PARAM));
-		addInput(createInput<PJ301MPort>(paramInputJackVec(0, 0), module, VBNO::OCTAVE_INPUT));
+		// LP
+		addParam(createParam<Round909Knob>(paramVec(0, 0), module, Dip::LP_PARAM));
+		addInput(createInput<Round909Port>(paramInputJackVec(0, 0), module, Dip::LP_INPUT));
 
-		// Note
-		addParam(createParam<RoundBlackSnapKnob>(paramVec(0, 1), module, VBNO::NOTE_PARAM));
-		addInput(createInput<PJ301MPort>(paramInputJackVec(0, 1), module, VBNO::NOTE_INPUT));
+		// HP
+		addParam(createParam<Round909Knob>(paramVec(0, 1), module, Dip::HP_PARAM));
+		addInput(createInput<Round909Port>(paramInputJackVec(0, 1), module, Dip::HP_INPUT));
 
-		// Fn
-		addParam(createParam<RoundBlackSnapKnob>(paramVec(0, 2), module, VBNO::WAVE_PARAM));
-		addInput(createInput<PJ301MPort>(paramInputJackVec(0, 2), module, VBNO::WAVE_INPUT));
+		// Q
+		addParam(createParam<Round909Knob>(paramVec(0, 2), module, Dip::Q_PARAM));
+		addInput(createInput<Round909Port>(paramInputJackVec(0, 2), module, Dip::Q_INPUT));
 
-		// Sync
-		addInput(createInput<PJ301MPort>(Vec(10, 265), module, VBNO::SYNC_INPUT));
+		// Slope
+		addParam(createParam<Round909SnapKnob>(paramVec(0, 2), module, Dip::SLOPE_PARAM));
+		addInput(createInput<Round909Port>(paramInputJackVec(0, 2), module, Dip::SLOPE_INPUT));
+
+		// Input
+		addInput(createInput<Round909Port>(Vec(10, 265), module, Dip::INPUT));
 		
-        // Outputs
-		addOutput(createOutput<PJ301MPort>(outputVec(0, 0), module, VBNO::OUTPUT));
+		// Output
+		addOutput(createOutput<Round909Port>(Vec(11, OUTPUT_ROW_1_POS), module, Dip::OUTPUT));
 	}
 };
 
 
-Model* modelVBNO = createModel<VBNO, VBNOWidget>("VBNO");
+Model* modelDip = createModel<Dip, DipWidget>("Dip");

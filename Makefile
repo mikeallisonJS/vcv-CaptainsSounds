@@ -2,7 +2,7 @@
 RACK_DIR ?= ../..
 
 # FLAGS will be passed to both the C and C++ compiler
-FLAGS +=
+FLAGS += -Idep/include
 CFLAGS +=
 CXXFLAGS +=
 
@@ -18,8 +18,18 @@ SOURCES += $(wildcard src/*.cpp)
 DISTRIBUTABLES += res
 DISTRIBUTABLES += $(wildcard LICENSE*)
 
-# Include the Rack plugin Makefile framework
-include $(RACK_DIR)/plugin.mk
+libfftw := dep/lib/libfftw3.a
+OBJECTS += $(libfftw)
 
 # Dependencies
-DEPS +=
+DEPS += $(libfftw)
+
+$(libfftw):
+	cd dep && $(WGET) http://www.fftw.org/fftw-3.3.8.tar.gz
+	cd dep && $(UNTAR) ./fftw-3.3.8.tar.gz
+	cd dep/fftw-3.3.8 && $(CONFIGURE)
+	cd dep/fftw-3.3.8 && $(MAKE)
+	cd dep/fftw-3.3.8 && $(MAKE) install
+
+# Include the Rack plugin Makefile framework
+include $(RACK_DIR)/plugin.mk

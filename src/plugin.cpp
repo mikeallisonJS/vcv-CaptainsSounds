@@ -9,6 +9,7 @@ void init(Plugin* p) {
 	p->addModel(modelBlank901);
 	p->addModel(modelBlank902);
 	p->addModel(modelBlank904);
+	p->addModel(modelDip);
 	p->addModel(modelVBNO);
 
 	// Any other plugin initialization may go here.

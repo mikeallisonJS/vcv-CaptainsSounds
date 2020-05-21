@@ -1,10 +1,12 @@
 #pragma once
 #include <rack.hpp>
 #include "components.hpp"
+#include "grid.hpp"
 
 using namespace rack;
 using namespace captainssounds;
 using namespace captainssounds::components;
+using namespace captainssounds::grid;
 
 
 namespace captainssounds {
@@ -21,6 +23,7 @@ extern Plugin* pluginInstance;
 extern Model* modelBlank901;
 extern Model* modelBlank902;
 extern Model* modelBlank904;
+extern Model* modelDip;
 extern Model* modelVBNO;
 
 
