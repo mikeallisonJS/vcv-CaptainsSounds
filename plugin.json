@@ -38,6 +38,15 @@
       ]
     },
     {
+      "slug": "Nip",
+      "name": "Nip",
+      "description": "Hard clipper with ceiling",
+      "tags": [
+        "Distortion",
+        "Dynamics"
+      ]
+    },
+    {
       "slug": "VBNO",
       "name": "VBNO - Voice By Note Oscillator",
       "description": "Oscillator with locked pitch by octave & note. Also allows for v/oct overrides rounding voltage to nearest octave or note.",

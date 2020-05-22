@@ -1,0 +1,18 @@
+<svg id="svg111794" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="19" height="19.00005" viewBox="0 0 19 19.00005">
+  <defs>
+    <linearGradient id="linear-gradient" x1="8.93947" y1="2.25" x2="10.06447" y2="2.25" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fb9250"/>
+      <stop offset="0.94134" stop-color="#a7653d"/>
+      <stop offset="1" stop-color="#eb8a4d"/>
+      <stop offset="1" stop-color="#fb9250"/>
+    </linearGradient>
+  </defs>
+  <title>SmallRound909Knob</title>
+  <g id="layer1">
+    <g>
+      <path id="edge" d="M19,9.49874A9.5,9.5,0,1,1,9.50132.00005,9.49986,9.49986,0,0,1,19,9.49874" transform="translate(0.00002 0)" style="fill: #343740"/>
+      <path id="path110594" d="M18.125,9.49884A8.625,8.625,0,1,1,9.50122.875,8.62487,8.62487,0,0,1,18.125,9.49884" transform="translate(0.00002 0)" style="fill: #454955"/>
+    </g>
+    <path id="path110596" d="M10.06447.01715C9.87859.00611,9.69255,0,9.502,0c-.19535,0-.37654.00613-.56257.01715V4.5h1.125Z" transform="translate(0.00002 0)" style="fill-rule: evenodd;fill: url(#linear-gradient)"/>
+  </g>
+</svg>

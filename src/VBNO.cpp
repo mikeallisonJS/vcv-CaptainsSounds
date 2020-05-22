@@ -3,7 +3,6 @@
 #include "dsp.hpp"
 #include "VBNO.hpp"
 
-
 using namespace captainssounds;
 
 //VBNO Oscillator
@@ -86,32 +85,28 @@ void VBNO::process(const ProcessArgs& args) {
 					
 }
 
-struct VBNOWidget : ModuleWidget {
+struct VBNOWidget : CSModuleWidget {
 	VBNOWidget(VBNO* module) {
+		hp = 3;
 		setModule(module);
-		setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/VBNO.svg")));
 
-		//Screws
-		addChild(createWidget<ScrewBlack>(Vec(box.size.x/3, SCREW_TOP_Y_POS)));
-		addChild(createWidget<ScrewBlack>(Vec(box.size.x/3, SCREW_BOTTOM_Y_POS)));
+		setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/VBNO.svg")));
+		addScrews();
 
 		// Octave
-		addParam(createParam<Round909SnapKnob>(paramVec(0, 0), module, VBNO::OCTAVE_PARAM));
-		addInput(createInput<Round909Port>(paramInputJackVec(0, 0), module, VBNO::OCTAVE_INPUT));
+		addParamKnobWithInput(0, VBNO::OCTAVE_PARAM, VBNO::OCTAVE_INPUT, true);
 
 		// Note
-		addParam(createParam<Round909SnapKnob>(paramVec(0, 1), module, VBNO::NOTE_PARAM));
-		addInput(createInput<Round909Port>(paramInputJackVec(0, 1), module, VBNO::NOTE_INPUT));
+		addParamKnobWithInput(1, VBNO::NOTE_PARAM, VBNO::NOTE_INPUT, true);
 
 		// Fn
-		addParam(createParam<Round909SnapKnob>(paramVec(0, 2), module, VBNO::WAVE_PARAM));
-		addInput(createInput<Round909Port>(paramInputJackVec(0, 2), module, VBNO::WAVE_INPUT));
+		addParamKnobWithInput(2, VBNO::WAVE_PARAM, VBNO::WAVE_INPUT, true);
 
 		// Sync
-		addInput(createInput<Round909Port>(Vec(11, 265), module, VBNO::SYNC_INPUT));
+		addInputJack(VBNO::SYNC_INPUT);
 		
         // Outputs
-		addOutput(createOutput<Round909Port>(Vec(11, 320), module, VBNO::OUTPUT));
+		addOutputJack(VBNO::OUTPUT);
 	}
 };
 
