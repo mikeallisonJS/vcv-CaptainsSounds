@@ -80,6 +80,8 @@ void VBNO::process(const ProcessArgs& args) {
 		osc.selectedWave = params[WAVE_PARAM].getValue();
 	}
 
+	
+
 	// Output selected wave pattern
 	outputs[OUTPUT].setVoltage(osc.getVoltage());
 					

@@ -21,11 +21,16 @@ namespace captainssounds{
             NUM_OUTPUTS
         };
         enum LightIds {
-            GREEN_1V,
-            GREEN_2V,
-            GREEN_3V,
-            YELLOW_4V,
-            RED_5V,
+            ENUMS(LIGHT_1, 3),
+            ENUMS(LIGHT_2, 3),
+            ENUMS(LIGHT_3, 3),
+            ENUMS(LIGHT_4, 3),
+            ENUMS(LIGHT_5, 3),
+            ENUMS(LIGHT_6, 3),
+            ENUMS(LIGHT_7, 3),
+            ENUMS(LIGHT_8, 3),
+            ENUMS(LIGHT_9, 3),
+            ENUMS(LIGHT_10, 3),
             NUM_LIGHTS
         };
 
@@ -38,12 +43,13 @@ namespace captainssounds{
         float inputV;
         float inputValue;
         float output;
+        dsp::ClockDivider lightDivider;
     
-
         Nip() {
             config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
             configParam(GAIN_INPUT, 0.f, 200.f, 100.f, "Gain", "%");
             configParam(CEIL_PARAM, 0.f, 100.f, 100.f, "Ceiling", "%");
+            lightDivider.setDivision(16);
         }
 
         void process(const ProcessArgs& args) override;

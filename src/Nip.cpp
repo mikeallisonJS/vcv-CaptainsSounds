@@ -31,6 +31,20 @@ void Nip::process(const ProcessArgs& args) {
 	
 	// Process
 	output = clamp5VBipolar(inputV * gainValue);
+	
+	// Lights (each light is 3 enum lights)
+	if(lightDivider.process()) {
+		for (float i = 0.00f; i < 5.f; i += .5f) {			
+			int index = i * 3 * 2; //3 lights 2 steps per volt
+			float red = output > i && ceilValue <= i;
+			float green = !red && output > i ? 1.f : 0.f;
+			lights[index + 0].setSmoothBrightness(red, args.sampleTime * lightDivider.getDivision());
+			lights[index + 1].setSmoothBrightness(green, args.sampleTime * lightDivider.getDivision());
+			lights[index + 2].setBrightness(0.f);
+		}
+	}
+
+	// Process ceiling
 	output = clamp(output, -ceilValue, ceilValue);
 
 	// Output 
@@ -51,6 +65,13 @@ struct NipWidget : CSModuleWidget {
 		// Ceiling
 		addParamKnobWithInput(1, Nip::CEIL_PARAM, Nip::CEIL_INPUT);
 
+		// Lights
+		int yPos = 255;
+		for (int i = 0; i < 10; i++) {			
+			addChild(createLight<SmallLight<RedGreenBlueLight>>(Vec(12, yPos), module, i * 3));
+			yPos -= 10;
+		}
+				
 		// Input
 		addInputJack(Nip::INPUT);
 		
