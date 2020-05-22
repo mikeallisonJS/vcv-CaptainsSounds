@@ -18,14 +18,33 @@ namespace captainssounds {
         const int PARAM_SMALL_OFFSET = 3;
 
         const int INPUT_ROW_1_POS = 265;
-        const int OUTPUT_ROW_1_POS = 320;
+        const int OUTPUT_ROW_BOTTOM_POS = 320;
+
+        const int LIGHT_COLUMN_POSITIONS [3] = {5, 12, 19};
 
         int hp = 1;
 
-        void addParamKnob(int row, int param, bool snap = true);
-        void addParamKnobWithInput(int row, int param, int input, bool snap = true);
+        void addParamKnob(int row, int param, bool snap = false);
+        void addParamKnobWithInput(int row, int param, int input, bool snap = false);
         void addInputJack(int input);
         void addOutputJack(int output);
         void addScrews();
+        template<typename T>
+        T* addLight(int yPos, int light) {
+            addChild(createLight<T>(Vec(12, yPos), module, light));
+            return 0; // because I have to return something
+        }
+    };
+
+    struct CSSplitModuleWidget : CSModuleWidget {
+        const int INPUT_ROW_POSITIONS [2]  = { 160, 265 };
+        const int PARAM_ROW_POSITIONS [3] = {55, 220};
+        const int PARAM_COLUMN_POSITIONS [3] = {3, 6, 10};
+        const int OUTPUT_ROW_POSITIONS [2] = {147, 320 };
+ 
+        void addParamKnob(int row, int param, bool snap = false);
+        void addParamKnobWithInput(int row, int param, int input, bool snap = false);
+        void addInputJack(int row, int input);
+        void addOutputJack(int row, int input);
     };
 }
