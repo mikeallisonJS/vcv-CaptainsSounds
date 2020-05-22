@@ -43,7 +43,17 @@
       "description": "Hard clipper with ceiling",
       "tags": [
         "Distortion",
-        "Dynamics"
+        "Dynamics",
+        "Limiter"
+      ]
+    },
+    {
+      "slug": "Pow",
+      "name": "Pow",
+      "description": "Uni-polar and Bi-polar voltage generator and attenuator",
+      "tags": [
+        "Attenuator",
+        "Utility"
       ]
     },
     {

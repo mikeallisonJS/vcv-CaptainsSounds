@@ -1,5 +1,6 @@
 ### 1.0.3 (5/21/2020)
 - Added Nip hard clipper
+- Added Pow voltage generator and attenuator
 - Added initial internal layout methodology
 - Added internal voltage clamp methods
 

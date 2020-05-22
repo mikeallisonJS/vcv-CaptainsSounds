@@ -67,8 +67,8 @@ struct NipWidget : CSModuleWidget {
 
 		// Lights
 		int yPos = 255;
-		for (int i = 0; i < 10; i++) {			
-			addChild(createLight<SmallLight<RedGreenBlueLight>>(Vec(12, yPos), module, i * 3));
+		for (int i = 0; i < 10; i++) {
+			addLight<SmallLight<RedGreenBlueLight>>(yPos, i * 3);
 			yPos -= 10;
 		}
 				

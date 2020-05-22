@@ -6,6 +6,7 @@ using namespace captainssounds;
 using namespace captainssounds::components;
 using namespace rack;
 
+//CSModuleWidget
 void CSModuleWidget::addScrews() {
     if (hp < 4) {    
         int hpIndex = hp - 1;
@@ -54,5 +55,44 @@ void CSModuleWidget::addInputJack(int input = 0) {
 
 void CSModuleWidget::addOutputJack(int output = 0) {
     int hpIndex = hp - 1;
-    addOutput(createOutput<Round909Port>(Vec(JACK_COLUMN_POSITIONS[hpIndex], OUTPUT_ROW_1_POS), module, output));
+    addOutput(createOutput<Round909Port>(Vec(JACK_COLUMN_POSITIONS[hpIndex], OUTPUT_ROW_BOTTOM_POS), module, output));
+}
+
+//CSSplitModuleWidget
+void CSSplitModuleWidget::addParamKnob(int row, int param, bool snap) {
+    int hpIndex = hp - 1;
+    int yPos = PARAM_ROW_POSITIONS[row];
+    if (hp == 2)
+        yPos += PARAM_SMALL_OFFSET;
+    if (snap) {
+        if (hp == 2) 
+            addParam(createParam<SmallRound909SnapKnob>(Vec(PARAM_COLUMN_POSITIONS[hpIndex], yPos), module, param));
+        else
+            addParam(createParam<Round909SnapKnob>(Vec(PARAM_COLUMN_POSITIONS[hpIndex], yPos), module, param));
+    } else {
+        if (hp == 2)
+            addParam(createParam<SmallRound909Knob>(Vec(PARAM_COLUMN_POSITIONS[hpIndex], yPos), module, param));
+        else
+            addParam(createParam<Round909Knob>(Vec(PARAM_COLUMN_POSITIONS[hpIndex], yPos), module, param));
+    }
+}
+
+void CSSplitModuleWidget::addParamKnobWithInput(int row, int param, int input, bool snap) {
+    addParamKnob(row, param, snap);
+    int hpIndex = hp - 1;
+    const int yPos = PARAM_ROW_POSITIONS[row] + PARAM_JACK_Y_OFFSET;
+    if (hp == 2)
+        addInput(createInput<Round909Port>(Vec(JACK_COLUMN_POSITIONS[hpIndex], yPos), module, input));
+    else
+        addInput(createInput<Round909Port>(Vec(JACK_COLUMN_POSITIONS[hpIndex], yPos), module, input));
+}
+
+void CSSplitModuleWidget::addInputJack(int row, int input) {
+    int hpIndex = hp - 1;
+    addInput(createInput<Round909Port>(Vec(JACK_COLUMN_POSITIONS[hpIndex], INPUT_ROW_POSITIONS[row]), module, input));
+}
+
+void CSSplitModuleWidget::addOutputJack(int row, int output) {
+    int hpIndex = hp - 1;
+    addOutput(createOutput<Round909Port>(Vec(JACK_COLUMN_POSITIONS[hpIndex], OUTPUT_ROW_POSITIONS[row]), module, output));
 }

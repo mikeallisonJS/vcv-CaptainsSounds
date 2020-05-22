@@ -95,19 +95,10 @@ struct VBNOWidget : CSModuleWidget {
 		setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/VBNO.svg")));
 		addScrews();
 
-		// Octave
 		addParamKnobWithInput(0, VBNO::OCTAVE_PARAM, VBNO::OCTAVE_INPUT, true);
-
-		// Note
 		addParamKnobWithInput(1, VBNO::NOTE_PARAM, VBNO::NOTE_INPUT, true);
-
-		// Fn
 		addParamKnobWithInput(2, VBNO::WAVE_PARAM, VBNO::WAVE_INPUT, true);
-
-		// Sync
 		addInputJack(VBNO::SYNC_INPUT);
-		
-        // Outputs
 		addOutputJack(VBNO::OUTPUT);
 	}
 };
