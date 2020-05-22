@@ -29,5 +29,16 @@ namespace captainssounds {
                 setSvg(APP->window->loadSvg(asset::system("res/CSlogo.svg")));
             }
         };
+
+        struct SmallRound909Knob : RoundKnob {
+            SmallRound909Knob() {
+                setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Components/SmallRound909Knob.svg")));
+            }
+        };
+        struct SmallRound909SnapKnob : SmallRound909Knob {
+            SmallRound909SnapKnob() {
+                snap = true;
+            }
+        };
     }
 }

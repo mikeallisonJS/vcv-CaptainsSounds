@@ -14,39 +14,30 @@ namespace captainssounds {
 		// }
 	// };
 
-	struct Blank901Widget : ModuleWidget {
+	struct Blank901Widget : CSModuleWidget {
 		Blank901Widget(Module* module) {
+			hp = 1;
 			setModule(module);
 			setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/90hBlank-1.svg")));
-
-			//Screws
-			addChild(createWidget<ScrewBlack>(Vec(0, SCREW_TOP_Y_POS)));
-			addChild(createWidget<ScrewBlack>(Vec(0, SCREW_BOTTOM_Y_POS)));
+			addScrews();
 		}
 	};
 
-	struct Blank902Widget : ModuleWidget {
+	struct Blank902Widget : CSModuleWidget {
 		Blank902Widget(Module* module) {
+			hp = 2;
 			setModule(module);
 			setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/90hBlank-2.svg")));
-
-			//Screws
-			addChild(createWidget<ScrewBlack>(Vec(box.size.x/4, SCREW_TOP_Y_POS)));
-			addChild(createWidget<ScrewBlack>(Vec(box.size.x/4, SCREW_BOTTOM_Y_POS)));
+			addScrews();
 		}
 	};
 	
-	struct Blank904Widget : ModuleWidget {
+	struct Blank904Widget : CSModuleWidget {
 		Blank904Widget(Module* module) {
+			hp = 4;
 			setModule(module);
 			setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/90hBlank-4.svg")));
-
-			//Screws
-			addChild(createWidget<ScrewBlack>(Vec(1, SCREW_TOP_Y_POS)));
-			addChild(createWidget<ScrewBlack>(Vec(1, SCREW_BOTTOM_Y_POS)));
-			addChild(createWidget<ScrewBlack>(Vec(box.size.x - RACK_GRID_WIDTH, SCREW_TOP_Y_POS)));
-			addChild(createWidget<ScrewBlack>(Vec(box.size.x - RACK_GRID_WIDTH, SCREW_BOTTOM_Y_POS)));
-			
+			addScrews();
 		}
 	};
 }

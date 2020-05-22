@@ -1,7 +1,7 @@
 {
   "slug": "CaptainsSounds",
   "name": "Captain's Sounds",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "license": "GPL-3.0-only",
   "brand": "Captain's Sounds",
   "author": "Mike Allison",
@@ -35,6 +35,15 @@
       "description": "4HP Blank 90h theme",
       "tags": [
         "Blank"
+      ]
+    },
+    {
+      "slug": "Nip",
+      "name": "Nip",
+      "description": "Hard clipper with ceiling",
+      "tags": [
+        "Distortion",
+        "Dynamics"
       ]
     },
     {
