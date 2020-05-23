@@ -1,4 +1,4 @@
-#include "plugin.hpp"
+#include "captainssounds.hpp"
 #include "Pow.hpp"
 
 using namespace captainssounds;

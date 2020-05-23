@@ -1,4 +1,4 @@
-#include "plugin.hpp"
+#include "captainssounds.hpp"
 #include "Nip.hpp"
 
 using namespace captainssounds;
@@ -45,7 +45,7 @@ void Nip::process(const ProcessArgs& args) {
 	}
 
 	// Process ceiling
-	output = clamp(output, -ceilValue, ceilValue);
+	output = tclamp(output, -ceilValue, ceilValue);
 
 	// Output 
 	outputs[OUTPUT].setVoltage(output);

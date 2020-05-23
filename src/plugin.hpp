@@ -7,14 +7,8 @@ using namespace rack;
 using namespace captainssounds;
 using namespace captainssounds::components;
 
-
 namespace captainssounds {
-    const int LOGO_Y_POS = 345;
     const NVGcolor PANEL_BG_COLOR = nvgRGBA(0xdf, 0xdb, 0xda, 0xff);
-
-    //Voltage clamps
-    float clamp10VUnipolar(float x);
-    float clamp5VBipolar(float x);
 }
 
 // Declare the Plugin, defined in plugin.cpp
