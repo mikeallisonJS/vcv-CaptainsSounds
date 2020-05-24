@@ -44,13 +44,15 @@ struct IMOWidget : CSMultplitModuleWidget {
 		addScrews();
         
         addJack(0, INPUT_JACK, IMO::INPUT_A);
-        addJack(1, OUTPUT_JACK, IMO::OUTPUT_1);
-        addJack(2, OUTPUT_JACK, IMO::OUTPUT_2);
-        addJack(3, OUTPUT_JACK, IMO::OUTPUT_3);
-        addJack(4, INPUT_JACK, IMO::INPUT_B);
-        addJack(5, OUTPUT_JACK, IMO::OUTPUT_4);
-        addJack(6, OUTPUT_JACK, IMO::OUTPUT_5);
-        addJack(7, OUTPUT_JACK, IMO::OUTPUT_6);
+        //skip 1
+        addJack(2, OUTPUT_JACK, IMO::OUTPUT_1);
+        addJack(3, OUTPUT_JACK, IMO::OUTPUT_2);
+        addJack(4, OUTPUT_JACK, IMO::OUTPUT_3);
+        addJack(5, INPUT_JACK, IMO::INPUT_B);
+        //skip 1
+        addJack(7, OUTPUT_JACK, IMO::OUTPUT_4);
+        addJack(8, OUTPUT_JACK, IMO::OUTPUT_5);
+        addJack(9, OUTPUT_JACK, IMO::OUTPUT_6);
 	}
 };
 

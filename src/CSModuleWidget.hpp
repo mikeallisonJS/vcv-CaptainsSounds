@@ -55,8 +55,9 @@ namespace captainssounds {
             INPUT_JACK,
             OUTPUT_JACK
         };
-        const int JACK_FIRST_ROW_POSITIONS [4]  = { 40, 87, 117, 147 };
-        const int JACK_SECOND_ROW_OFFSET = 173;
+        const int JACK_FIRST_ROW_POS = 45;
+        const int JACK_POS_OFFSET = 27;
+        const int JACK_SECOND_ROW_OFFSET = 34;
 
         void addJack(int row, int inOrOut, int jack);
     };

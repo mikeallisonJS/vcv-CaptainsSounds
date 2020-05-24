@@ -100,10 +100,10 @@ void CSSplitModuleWidget::addOutputJack(int row, int output) {
 // CSMultplitModuleWidget
 void CSMultplitModuleWidget::addJack(int row, int inOrOut, int jack) {
     int hpIndex = hp - 1;
-    int yPos = JACK_FIRST_ROW_POSITIONS[row];
-    if (row > 3) {
-        yPos = JACK_FIRST_ROW_POSITIONS[row - 4]+ JACK_SECOND_ROW_OFFSET;
-    }
+    int yPos = JACK_FIRST_ROW_POS + (row * JACK_POS_OFFSET);
+    if (row > 4)
+        yPos += JACK_SECOND_ROW_OFFSET;
+        
     if (inOrOut == INPUT_JACK)
         addInput(createInput<Round909Port>(Vec(JACK_COLUMN_POSITIONS[hpIndex], yPos), module, jack));
     else
