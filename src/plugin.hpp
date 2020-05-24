@@ -19,6 +19,7 @@ extern Model* modelBlank901;
 extern Model* modelBlank902;
 extern Model* modelBlank904;
 extern Model* modelIMO;
+extern Model* modelMIO;
 extern Model* modelNip;
 extern Model* modelPow;
 extern Model* modelVBNO;
