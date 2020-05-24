@@ -1,44 +1,8 @@
-#include <math.h> 
-#include "plugin.hpp"
+#include "captainssounds.hpp"
 #include "dsp.hpp"
 #include "VBNO.hpp"
 
 using namespace captainssounds;
-
-//VBNO Oscillator
-void VBNO::Oscillator::process(float modelSampleTime) {
-	// Calculate internal sampleTime
-	if (sampleTime == 2.f) {
-		sampleTime = 0.f;
-		sampleOffset = modelSampleTime;
-	}
-	sampleTime = modelSampleTime + sampleOffset;
-	if (sampleTime > 1) 
-		sampleTime--;
-	
-	// Calculate phase
-	phase += frequency * sampleTime;
-	if (phase >= 0.5f)
-		phase--;
-}
-void VBNO::Oscillator::sync() {
-	sampleTime = 2.f; // bogus value to force offset calc
-}
-float VBNO::Oscillator::buildWave() {
-	switch (selectedWave) {
-		case 1:
-			return dsp::triangle(phase);	
-		case 2:
-			return dsp::saw(phase);	
-		case 3:
-			return dsp::square(phase, 0.5f);
-		default:
-			return dsp::sine(phase);
-	}	
-}
-float VBNO::Oscillator::getVoltage() {
-	return 5.f * buildWave();
-}
 
 void VBNO::process(const ProcessArgs& args) {
 	// Check for sync signal
@@ -64,7 +28,7 @@ void VBNO::process(const ProcessArgs& args) {
 	}
 	
 	// Generate Frequency from Oct & Note
-	osc.frequency = dsp::calculateFrequencyFromFromA4(octavesFromA4, notesFromA);
+	osc.frequency = osc.calculateFrequencyFromA4Tuning(octavesFromA4, notesFromA);
 	
 	// Process the current sample
 	osc.sampleRate = args.sampleRate;
@@ -74,13 +38,11 @@ void VBNO::process(const ProcessArgs& args) {
 	// Use Wave CV if connected 0-10v
 	if (inputs[WAVE_INPUT].isConnected()) {
 		float waveInputV = round(inputs[WAVE_INPUT].getVoltage());
-		float waveAdjustedV = clamp(floor(.4f * waveInputV), 0.f, 3.f); //4 choices, 10volts
-		osc.selectedWave = waveAdjustedV;
+		float waveAdjustedV = tclamp(floor(.4f * waveInputV), 0.f, 3.f); //4 choices, 10volts
+		osc.wave = waveAdjustedV;
 	} else {
-		osc.selectedWave = params[WAVE_PARAM].getValue();
+		osc.wave = params[WAVE_PARAM].getValue();
 	}
-
-	
 
 	// Output selected wave pattern
 	outputs[OUTPUT].setVoltage(osc.getVoltage());

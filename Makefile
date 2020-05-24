@@ -2,9 +2,9 @@
 RACK_DIR ?= ../..
 
 # FLAGS will be passed to both the C and C++ compiler
-FLAGS +=
+FLAGS += 
 CFLAGS +=
-CXXFLAGS +=
+CXXFLAGS =  -std=c++17
 
 # Careful about linking to shared libraries, since you can't assume much about the user's environment and library search path.
 # Static libraries are fine, but they should be added to this plugin's build system.
@@ -15,7 +15,7 @@ SOURCES += $(wildcard src/*.cpp)
 
 # Add files to the ZIP package when running `make dist`
 # The compiled plugin and "plugin.json" are automatically added.
-DISTRIBUTABLES += res
+DISTRIBUTABLES += res/*.svg res/**/*.svg
 DISTRIBUTABLES += $(wildcard LICENSE*)
 
 # Include the Rack plugin Makefile framework

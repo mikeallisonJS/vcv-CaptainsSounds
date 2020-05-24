@@ -1,3 +1,10 @@
+### 1.0.4 (5/23/2020)
+- Internal oscillator refactor
+- Create custom internal generic maths for min/max/clamping
+- Refactor non-rack namespace to not require rack
+- Move oscillator methods out of dsp namespace
+- exclude Illustrator files from build
+
 ### 1.0.3 (5/21/2020)
 - Added Nip hard clipper
 - Added Pow voltage generator and attenuator
