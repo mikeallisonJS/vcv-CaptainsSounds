@@ -38,6 +38,29 @@
       ]
     },
     {
+      "slug": "IMO",
+      "name": "IMO - Input to Multiple Output",
+      "description": "Dual polyphonic input to multi out",
+      "tags": [
+        "Dual",
+        "Multiple",
+        "Polyphonic",
+        "Utility"
+      ]
+    },
+    {
+      "slug": "MIO",
+      "name": "MIO - Multiple Input to Output",
+      "description": "Dual polyphonic multi input to out",
+      "tags": [
+        "Dual",
+        "Mixer",
+        "Multiple",
+        "Polyphonic",
+        "Utility"
+      ]
+    },
+    {
       "slug": "Nip",
       "name": "Nip",
       "description": "Hard clipper with ceiling",

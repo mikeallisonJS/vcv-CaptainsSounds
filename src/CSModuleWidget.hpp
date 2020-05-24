@@ -4,6 +4,7 @@
 using namespace rack;
 
 namespace captainssounds {
+    const int TOP_ROW_POS = 40;
     // Single column grid widget
     struct CSModuleWidget : ModuleWidget {
         const int SCREW_BOTTOM_Y_POS = 365;
@@ -46,5 +47,18 @@ namespace captainssounds {
         void addParamKnobWithInput(int row, int param, int input, bool snap = false);
         void addInputJack(int row, int input);
         void addOutputJack(int row, int input);
+    };
+
+    // For Dual 4 Jack Mults
+    struct CSMultplitModuleWidget : CSModuleWidget {
+        enum io {
+            INPUT_JACK,
+            OUTPUT_JACK
+        };
+        const int JACK_FIRST_ROW_POS = 45;
+        const int JACK_POS_OFFSET = 27;
+        const int JACK_SECOND_ROW_OFFSET = 34;
+
+        void addJack(int row, int inOrOut, int jack);
     };
 }

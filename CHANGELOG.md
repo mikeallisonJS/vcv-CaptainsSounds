@@ -1,4 +1,6 @@
 ### 1.0.4 (5/23/2020)
+- Added MIO 3->1 dual polyphonic mixer
+- Added IMO 1->3 dual polyphonic multiplier
 - Internal oscillator refactor
 - Create custom internal generic maths for min/max/clamping
 - Refactor non-rack namespace to not require rack

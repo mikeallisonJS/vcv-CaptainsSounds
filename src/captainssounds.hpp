@@ -25,6 +25,12 @@ namespace captainssounds {
         return tclamp(x, 0.f, 10.f);
     }
 
+        //Voltage clamps
+    template<typename T>
+    T clamp10VBipolar(T x) {
+        return tclamp(x, -10.f, 10.f);
+    }
+
     template<typename T>
     T clamp5VBipolar(T x) {
         return tclamp(x, -5.f, 5.f);
