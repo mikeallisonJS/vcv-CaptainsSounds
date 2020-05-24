@@ -9,6 +9,7 @@ void init(Plugin* p) {
 	p->addModel(modelBlank901);
 	p->addModel(modelBlank902);
 	p->addModel(modelBlank904);
+	p->addModel(modelIMO);
 	p->addModel(modelNip);
 	p->addModel(modelPow);
 	p->addModel(modelVBNO);
