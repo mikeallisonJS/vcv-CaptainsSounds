@@ -1,4 +1,7 @@
 # Captain's Sounds VCV Rack Modules
+
+![screeshot](./images/vcv523.png)
+
 Modules for [VCV Rack](https://vcvrack.com), an open-source Eurorack-style virtual modular synthesizer
 All modules are available for free in the [VCV Rack library](https://captainssounds.com/vcv).
 
