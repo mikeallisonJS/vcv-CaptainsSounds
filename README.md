@@ -6,7 +6,9 @@ All modules are available for free in the [VCV Rack library](https://captainssou
 
 - [Blanks](#blanks)
 - [Limiters](#limiters)
-- [Mults](#mults)
+- [Multipliers](#mults)
+- [Oscillators](#osc)
+- [Utilities](#utils)
 
 ### <a name="blanks"></a> Blanks 
 
@@ -26,7 +28,7 @@ A 4 HP Blank with the 9Oh theme
 Hard clipper with ceiling
 
 
-### <a name="mults"></a> Mults 
+### <a name="mults"></a> Multipliers 
 
 #### IMO - Input to Multiple Output
 Dual polyphonic input to multi out
