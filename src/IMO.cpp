@@ -12,10 +12,10 @@ void IMO::process(const ProcessArgs& args) {
         for (int i = 0; i < numChannels; i++) 
             outputAV[i] = inputs[INPUT_A].getPolyVoltage(i);        
         
-        int index = 2;
+        int index = 3;
         //copy values to B outs if not connected
         if (!connectedB) 
-            index = 5;
+            index = 6;
         
         for (int i = 0; i < index; i++) {
             outputs[OUTPUT_1 + i].setChannels(channelsA);        
@@ -29,8 +29,8 @@ void IMO::process(const ProcessArgs& args) {
         for (int i = 0; i < numChannels; i++) 
             outputBV[i] = inputs[INPUT_B].getPolyVoltage(i);
         for (int i = 0; i < 3; i++) {
-            outputs[OUTPUT_3 + i].setChannels(channelsB);        
-            outputs[OUTPUT_3 + i].writeVoltages(outputBV);
+            outputs[OUTPUT_4 + i].setChannels(channelsB);        
+            outputs[OUTPUT_4 + i].writeVoltages(outputBV);
         }
     }
 }

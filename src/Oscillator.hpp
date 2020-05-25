@@ -44,7 +44,7 @@ namespace captainssounds {
         template<typename T>
         T calculateFrequencyFromA4Tuning(T octaveFromA4, T notesFromA4) {
             T semitones = (octaveFromA4 * 12) + notesFromA4;
-            return tuning * std::pow(FREQ_SEMITONE, semitones);
+            return tuning * pow(FREQ_SEMITONE, semitones);
         }
 
         template<typename T>
@@ -55,7 +55,7 @@ namespace captainssounds {
 
         template<typename T>
         T sine(T phase) {
-            return std::sin(TWO_PI * phase);
+            return sin(TWO_PI * phase);
         }
 
         template<typename T>
