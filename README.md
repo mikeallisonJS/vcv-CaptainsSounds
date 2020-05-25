@@ -54,12 +54,20 @@ Oscillator with locked pitch by octave & note. Also allows for v/oct overrides r
 #### Pow
 Uni-polar and Bi-polar voltage generator and attenuator
 
+## License
+
+All source code is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.txt).
 
 ## Issues and Feedback
 
 Bug reports and feedback are welcome: please use the [issue tracker](https://github.com/mikeallisonJS/vcv-CaptainsSounds/issues).
 
-
 ## Acknowledgements
 
 The Github Actions auto-build scripts under [.github/](.github) are originally from [SubmarineFree](https://github.com/david-c14/SubmarineFree) -- thanks @david-c14 and @dewb -- find a detailed explanation [here](https://github.com/david-c14/SubmarineFree/wiki/Cross-compiling-using-github-actions).
+
+## Financial support and sponsorship
+All donations are extremely appreciated.
+Please visit [captainofbass.com/donate](https://captainofbass.com/donate) to donate directly to the author.
+
+ If you wish to become an official sponsor, please email [mike@captainssounds.com](mailto:mike@captainssounds.com) for more information.
