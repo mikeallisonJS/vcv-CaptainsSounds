@@ -60,7 +60,7 @@ All source code is licensed under the [GNU General Public License v3.0](https://
 
 ## Issues and Feedback
 
-Bug reports and feedback are welcome: please use the [issue tracker](https://github.com/mikeallisonJS/vcv-CaptainsSounds/issues).
+Bug reports and feedback are welcome: please use the [issue tracker](https://github.com/captainssounds/vcv-CaptainsSounds/issues).
 
 ## Acknowledgements
 
