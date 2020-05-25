@@ -1,6 +1,6 @@
 # Captain's Sounds VCV Rack Modules
 
-![Release](https://github.com/captainssounds/vcv-CaptainsSounds/workflows/Development/badge.svg?branch=development) ![Development](https://github.com/captainssounds/vcv-CaptainsSounds/workflows/Development/badge.svg?branch=development)
+![Release](https://github.com/captainssounds/vcv-CaptainsSounds/workflows/Development/badge.svg?branch=master) ![Development](https://github.com/captainssounds/vcv-CaptainsSounds/workflows/Development/badge.svg?branch=development)
 
 ![screeshot](./images/vcv523.png)
 
