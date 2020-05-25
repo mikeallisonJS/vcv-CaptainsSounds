@@ -1,5 +1,7 @@
 # Captain's Sounds VCV Rack Modules
 
+![Release](https://github.com/captainssounds/vcv-CaptainsSounds/workflows/Development/badge.svg?branch=master) ![Development](https://github.com/captainssounds/vcv-CaptainsSounds/workflows/Development/badge.svg?branch=development)
+
 ![screeshot](./images/vcv523.png)
 
 Modules are for [VCV Rack](https://vcvrack.com), an open-source, virtual Eurorack-style modular synthesizer.
@@ -51,3 +53,13 @@ Oscillator with locked pitch by octave & note. Also allows for v/oct overrides r
 
 #### Pow
 Uni-polar and Bi-polar voltage generator and attenuator
+
+
+## Issues and Feedback
+
+Bug reports and feedback are welcome: please use the [issue tracker](https://github.com/mikeallisonJS/vcv-CaptainsSounds/issues).
+
+
+## Acknowledgements
+
+The Github Actions auto-build scripts under [.github/](.github) are originally from [SubmarineFree](https://github.com/david-c14/SubmarineFree) -- thanks @david-c14 and @dewb -- find a detailed explanation [here](https://github.com/david-c14/SubmarineFree/wiki/Cross-compiling-using-github-actions).
