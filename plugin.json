@@ -1,8 +1,8 @@
 {
   "slug": "CaptainsSounds",
   "name": "Captain's Sounds",
-  "version": "1.0.1",
-  "license": "proprietary",
+  "version": "1.0.4",
+  "license": "GPL-3.0-only",
   "brand": "Captain's Sounds",
   "author": "Mike Allison",
   "authorEmail": "mike@captainssounds.com",
@@ -35,6 +35,48 @@
       "description": "4HP Blank 90h theme",
       "tags": [
         "Blank"
+      ]
+    },
+    {
+      "slug": "IMO",
+      "name": "IMO - Input to Multiple Output",
+      "description": "Dual polyphonic input to multi out",
+      "tags": [
+        "Dual",
+        "Multiple",
+        "Polyphonic",
+        "Utility"
+      ]
+    },
+    {
+      "slug": "MIO",
+      "name": "MIO - Multiple Input to Output",
+      "description": "Dual polyphonic multi input to out",
+      "tags": [
+        "Dual",
+        "Mixer",
+        "Multiple",
+        "Polyphonic",
+        "Utility"
+      ]
+    },
+    {
+      "slug": "Nip",
+      "name": "Nip",
+      "description": "Hard clipper with ceiling",
+      "tags": [
+        "Distortion",
+        "Dynamics",
+        "Limiter"
+      ]
+    },
+    {
+      "slug": "Pow",
+      "name": "Pow",
+      "description": "Uni-polar and Bi-polar voltage generator and attenuator",
+      "tags": [
+        "Attenuator",
+        "Utility"
       ]
     },
     {

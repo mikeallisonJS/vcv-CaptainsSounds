@@ -1,45 +1,8 @@
-#include <math.h> 
-#include "plugin.hpp"
+#include "captainssounds.hpp"
 #include "dsp.hpp"
 #include "VBNO.hpp"
 
-
 using namespace captainssounds;
-
-//VBNO Oscillator
-void VBNO::Oscillator::process(float modelSampleTime) {
-	// Calculate internal sampleTime
-	if (sampleTime == 2.f) {
-		sampleTime = 0.f;
-		sampleOffset = modelSampleTime;
-	}
-	sampleTime = modelSampleTime + sampleOffset;
-	if (sampleTime > 1) 
-		sampleTime--;
-	
-	// Calculate phase
-	phase += frequency * sampleTime;
-	if (phase >= 0.5f)
-		phase--;
-}
-void VBNO::Oscillator::sync() {
-	sampleTime = 2.f; // bogus value to force offset calc
-}
-float VBNO::Oscillator::buildWave() {
-	switch (selectedWave) {
-		case 1:
-			return dsp::triangle(phase);	
-		case 2:
-			return dsp::saw(phase);	
-		case 3:
-			return dsp::square(phase, 0.5f);
-		default:
-			return dsp::sine(phase);
-	}	
-}
-float VBNO::Oscillator::getVoltage() {
-	return 5.f * buildWave();
-}
 
 void VBNO::process(const ProcessArgs& args) {
 	// Check for sync signal
@@ -65,7 +28,7 @@ void VBNO::process(const ProcessArgs& args) {
 	}
 	
 	// Generate Frequency from Oct & Note
-	osc.frequency = dsp::calculateFrequencyFromFromA4(octavesFromA4, notesFromA);
+	osc.frequency = osc.calculateFrequencyFromA4Tuning(octavesFromA4, notesFromA);
 	
 	// Process the current sample
 	osc.sampleRate = args.sampleRate;
@@ -75,10 +38,10 @@ void VBNO::process(const ProcessArgs& args) {
 	// Use Wave CV if connected 0-10v
 	if (inputs[WAVE_INPUT].isConnected()) {
 		float waveInputV = round(inputs[WAVE_INPUT].getVoltage());
-		float waveAdjustedV = clamp(floor(.4f * waveInputV), 0.f, 3.f); //4 choices, 10volts
-		osc.selectedWave = waveAdjustedV;
+		float waveAdjustedV = tclamp(floorf(.4f * waveInputV), 0.f, 3.f); //4 choices, 10volts
+		osc.wave = waveAdjustedV;
 	} else {
-		osc.selectedWave = params[WAVE_PARAM].getValue();
+		osc.wave = params[WAVE_PARAM].getValue();
 	}
 
 	// Output selected wave pattern
@@ -86,32 +49,19 @@ void VBNO::process(const ProcessArgs& args) {
 					
 }
 
-struct VBNOWidget : ModuleWidget {
+struct VBNOWidget : CSModuleWidget {
 	VBNOWidget(VBNO* module) {
+		hp = 3;
 		setModule(module);
+
 		setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/VBNO.svg")));
+		addScrews();
 
-		//Screws
-		addChild(createWidget<ScrewBlack>(Vec(box.size.x/3, SCREW_TOP_Y_POS)));
-		addChild(createWidget<ScrewBlack>(Vec(box.size.x/3, SCREW_BOTTOM_Y_POS)));
-
-		// Octave
-		addParam(createParam<Round909SnapKnob>(paramVec(0, 0), module, VBNO::OCTAVE_PARAM));
-		addInput(createInput<Round909Port>(paramInputJackVec(0, 0), module, VBNO::OCTAVE_INPUT));
-
-		// Note
-		addParam(createParam<Round909SnapKnob>(paramVec(0, 1), module, VBNO::NOTE_PARAM));
-		addInput(createInput<Round909Port>(paramInputJackVec(0, 1), module, VBNO::NOTE_INPUT));
-
-		// Fn
-		addParam(createParam<Round909SnapKnob>(paramVec(0, 2), module, VBNO::WAVE_PARAM));
-		addInput(createInput<Round909Port>(paramInputJackVec(0, 2), module, VBNO::WAVE_INPUT));
-
-		// Sync
-		addInput(createInput<Round909Port>(Vec(11, 265), module, VBNO::SYNC_INPUT));
-		
-        // Outputs
-		addOutput(createOutput<Round909Port>(Vec(11, 320), module, VBNO::OUTPUT));
+		addParamKnobWithInput(0, VBNO::OCTAVE_PARAM, VBNO::OCTAVE_INPUT, true);
+		addParamKnobWithInput(1, VBNO::NOTE_PARAM, VBNO::NOTE_INPUT, true);
+		addParamKnobWithInput(2, VBNO::WAVE_PARAM, VBNO::WAVE_INPUT, true);
+		addInputJack(VBNO::SYNC_INPUT);
+		addOutputJack(VBNO::OUTPUT);
 	}
 };
 
