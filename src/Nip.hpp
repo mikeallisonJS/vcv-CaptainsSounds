@@ -3,7 +3,7 @@
 
 using namespace captainssounds;
 
-namespace captainssounds{
+namespace captainssounds {
     struct Nip : Module {
         enum ParamIds {
             GAIN_PARAM,
@@ -44,7 +44,7 @@ namespace captainssounds{
         float inputValue;
         float output;
         dsp::ClockDivider lightDivider;
-    
+
         Nip() {
             config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
             configParam(GAIN_INPUT, 0.f, 200.f, 100.f, "Gain", "%");
@@ -54,6 +54,6 @@ namespace captainssounds{
 
         void process(const ProcessArgs& args) override;
     };
-}
+}  // namespace captainssounds
 
 extern Model* modelNip;

@@ -3,7 +3,7 @@
 
 using namespace captainssounds;
 
-namespace captainssounds{
+namespace captainssounds {
     struct Pow : Module {
         enum ParamIds {
             UNI_PARAM,
@@ -33,7 +33,7 @@ namespace captainssounds{
         float uniOutputV;
         float uniParam;
         dsp::ClockDivider lightDivider;
-    
+
         Pow() {
             config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
             configParam(UNI_PARAM, 0.00f, 10.00f, 10.f, "10V Uni-polar Voltage", "%");
@@ -43,6 +43,6 @@ namespace captainssounds{
 
         void process(const ProcessArgs& args) override;
     };
-}
+}  // namespace captainssounds
 
 extern Model* modelPow;

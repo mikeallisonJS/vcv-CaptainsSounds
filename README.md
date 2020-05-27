@@ -63,3 +63,5 @@ Bug reports and feedback are welcome: please use the [issue tracker](https://git
 ## Acknowledgements
 
 The Github Actions auto-build scripts under [.github/](.github) are originally from [SubmarineFree](https://github.com/david-c14/SubmarineFree) -- thanks @david-c14 and @dewb -- find a detailed explanation [here](https://github.com/david-c14/SubmarineFree/wiki/Cross-compiling-using-github-actions).
+
+The Moog Ladder filter dependency is provided by @ddiakopoulos under "The Unlicense" license. The original source code can be found [here](https://github.com/ddiakopoulos/MoogLadders).

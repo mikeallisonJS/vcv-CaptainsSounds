@@ -2,7 +2,7 @@
 #include "plugin.hpp"
 
 namespace captainssounds {
-    struct MIO: Module {
+    struct MIO : Module {
         enum inputIds {
             INPUT_1,
             INPUT_2,
@@ -19,8 +19,8 @@ namespace captainssounds {
         };
 
         int numChannels = 16;
-        float outputAV [16];
-        float outputBV [16];
+        float outputAV[16];
+        float outputBV[16];
         int channelsA = 0;
         int channelsB = 0;
 
@@ -30,4 +30,4 @@ namespace captainssounds {
 
         void process(const ProcessArgs& args) override;
     };
-}
+}  // namespace captainssounds

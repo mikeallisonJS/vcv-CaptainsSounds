@@ -1,6 +1,6 @@
 #include "CSModuleWidget.hpp"
-#include "components.hpp"
 #include <rack.hpp>
+#include "components.hpp"
 
 using namespace captainssounds;
 using namespace captainssounds::components;
@@ -8,7 +8,7 @@ using namespace rack;
 
 //CSModuleWidget
 void CSModuleWidget::addScrews() {
-    if (hp < 4) {    
+    if (hp < 4) {
         int hpIndex = hp - 1;
         addChild(createWidget<ScrewBlack>(Vec(SCREW_1_POSITIONS[hpIndex], SCREW_TOP_Y_POS)));
         addChild(createWidget<ScrewBlack>(Vec(SCREW_1_POSITIONS[hpIndex], SCREW_BOTTOM_Y_POS)));
@@ -17,7 +17,7 @@ void CSModuleWidget::addScrews() {
         addChild(createWidget<ScrewBlack>(Vec(1, SCREW_BOTTOM_Y_POS)));
         addChild(createWidget<ScrewBlack>(Vec(box.size.x - RACK_GRID_WIDTH, SCREW_TOP_Y_POS)));
         addChild(createWidget<ScrewBlack>(Vec(box.size.x - RACK_GRID_WIDTH, SCREW_BOTTOM_Y_POS)));
-    }        
+    }
 }
 
 void CSModuleWidget::addParamKnob(int row, int param, bool snap) {
@@ -26,7 +26,7 @@ void CSModuleWidget::addParamKnob(int row, int param, bool snap) {
     if (hp == 2)
         yPos += PARAM_SMALL_OFFSET;
     if (snap) {
-        if (hp == 2) 
+        if (hp == 2)
             addParam(createParam<SmallRound909SnapKnob>(Vec(PARAM_COLUMN_POSITIONS[hpIndex], yPos), module, param));
         else
             addParam(createParam<Round909SnapKnob>(Vec(PARAM_COLUMN_POSITIONS[hpIndex], yPos), module, param));
@@ -65,7 +65,7 @@ void CSSplitModuleWidget::addParamKnob(int row, int param, bool snap) {
     if (hp == 2)
         yPos += PARAM_SMALL_OFFSET;
     if (snap) {
-        if (hp == 2) 
+        if (hp == 2)
             addParam(createParam<SmallRound909SnapKnob>(Vec(PARAM_COLUMN_POSITIONS[hpIndex], yPos), module, param));
         else
             addParam(createParam<Round909SnapKnob>(Vec(PARAM_COLUMN_POSITIONS[hpIndex], yPos), module, param));
@@ -103,7 +103,7 @@ void CSMultplitModuleWidget::addJack(int row, int inOrOut, int jack) {
     int yPos = JACK_FIRST_ROW_POS + (row * JACK_POS_OFFSET);
     if (row > 4)
         yPos += JACK_SECOND_ROW_OFFSET;
-        
+
     if (inOrOut == INPUT_JACK)
         addInput(createInput<Round909Port>(Vec(JACK_COLUMN_POSITIONS[hpIndex], yPos), module, jack));
     else
