@@ -25,6 +25,10 @@ namespace captainssounds {
 
         int hp = 1;
 
+        bool dBugConnected;
+
+        CSModuleWidget() {}
+
         void addParamKnob(int row, int param, bool snap = false);
         void addParamKnobWithInput(int row, int param, int input, bool snap = false);
         void addInputJack(int input);

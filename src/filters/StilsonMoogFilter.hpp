@@ -3,19 +3,18 @@
 
 #include <math.h>
 #include <string.h>
+#include "base.hpp"
 #include "util.h"
 
 namespace captainssounds {
     namespace filters {
-        struct StilsonMoogFilter {
-            float sampleRate;
+        class StilsonMoogFilter : public CSFilterBase {
+          public:
             double p;
             double Q;
             float state[4];
-            float cutoff;
             double output;
             double highpass;
-            float resonance;
             const float S_STILSON_GAINTABLE[199] = {
                 0.999969, 0.990082, 0.980347, 0.970764, 0.961304, 0.951996, 0.94281, 0.933777, 0.924866, 0.916077,
                 0.90741, 0.898865, 0.890442, 0.882141, 0.873962, 0.865906, 0.857941, 0.850067, 0.842346, 0.834686,
@@ -44,7 +43,6 @@ namespace captainssounds {
             }
 
             void process(float samples) {
-                // for (int s = 0; s < 4; ++s)	{
                 // Scale by arbitrary value on account of our saturation function
                 const float input = samples * 0.65f;
 
@@ -59,7 +57,6 @@ namespace captainssounds {
 
                 SNAP_TO_ZERO(output);
                 output *= Q;  // Scale stateful output by Q
-                // }
                 highpass = samples - output;
             }
 

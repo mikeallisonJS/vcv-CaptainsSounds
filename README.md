@@ -55,6 +55,16 @@ Oscillator with locked pitch by octave & note. Also allows for v/oct overrides r
 Uni-polar and Bi-polar voltage generator and attenuator
 
 
+## Documentation
+
+Right now, I'm more focused on music creation and module creation. I'm trying to make my modules' functions obvious through name, description and type. If something isn't self obvious, shoot me an email or file an issue. If you're dying to write up documentation, let's get together and make it happen.
+
+
+## Design
+
+Right now, this is a one-man, open-source shop. I'm a developer by nature, and my designs are utilitarian at best. If you're interested in assisting with the graphic design, I'd love to see what you have in mind. 
+
+
 ## Issues and Feedback
 
 Bug reports and feedback are welcome: please use the [issue tracker](https://github.com/mikeallisonJS/vcv-CaptainsSounds/issues).

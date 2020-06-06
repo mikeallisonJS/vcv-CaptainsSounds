@@ -1,13 +1,17 @@
 #pragma once
 #include <math.h>
-#include "HuovilainenMoogFilter.hpp"
+#include "CSModule.hpp"
+#include "DBug.hpp"
 #include "dsp.hpp"
+#include "filters/HuovilainenMoogFilter.hpp"
+#include "filters/base.hpp"
 #include "plugin.hpp"
 
 using namespace captainssounds::filters;
+using namespace rack;
 
 namespace captainssounds {
-    struct Dip : Module {
+    struct Dip : CSModule {
         enum ParamIds {
             LP_PARAM,
             HP_PARAM,
@@ -28,16 +32,19 @@ namespace captainssounds {
         HuovilainenMoogFilter hpFilter;
         float lpFrequency;
         float lpInputV;
+        float lpParam;
         float hpFrequency;
         float hpInputV;
+        float hpParam;
         int inputChannels;
         float inputV;
         float outputV;
 
         Dip() {
             config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS);
-            configParam(LP_PARAM, 10.f, 22000.f, 500.f, "Low pass frequency", "Hz");
-            configParam(HP_PARAM, 10.f, 22000.f, 500., "High pass frequency", "Hz");
+            configParam<EQParamQuantity>(LP_PARAM, 0.f, 1.f, .4f, "Low pass frequency", "Hz");
+            configParam<EQParamQuantity>(HP_PARAM, 0.f, 1.f, .6f, "High pass frequency", "Hz");
+            hpFilter.mode = filters::MODE_HIGHPASS;
         }
 
         void process(const ProcessArgs& args) override;

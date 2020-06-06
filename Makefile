@@ -17,7 +17,7 @@ SOURCES += $(wildcard src/*.cpp)
 
 # Add files to the ZIP package when running `make dist`
 # The compiled plugin and "plugin.json" are automatically added.
-DISTRIBUTABLES += res/*.svg res/**/*.svg
+DISTRIBUTABLES += res/*.svg res/**/*.svg res/fonts/nunito/Nunito-Bold.ttf
 DISTRIBUTABLES += $(wildcard LICENSE*)
 
 OBJECTS +=

@@ -1,6 +1,8 @@
 #include "Dip.hpp"
 #include <math.h>
 #include <rack.hpp>
+#include <sstream>
+#include "DBug.hpp"
 #include "dsp.hpp"
 #include "plugin.hpp"
 
@@ -13,7 +15,8 @@ void Dip::process(const ProcessArgs& args) {
         return;
 
     inputV = inputs[INPUT].getVoltage();
-    lpFrequency = params[LP_PARAM].getValue();
+    lpParam = params[LP_PARAM].getValue();
+    lpFrequency = decimalToHz(lpParam);
     // Use Low pass CV if connected
     // if(inputs[LP_INPUT].isConnected()) {
     // 	lpInputV = inputs[LP_INPUT].getVoltage();
@@ -23,7 +26,7 @@ void Dip::process(const ProcessArgs& args) {
     // 	lpFilter.frequency = params[LP_PARAM].getValue();
     // }
 
-    hpFrequency = params[HP_PARAM].getValue();
+    hpFrequency = decimalToHz(params[HP_PARAM].getValue());
     // Use HP CV if connected
     // if(inputs[HP_INPUT].isConnected()) {
     // 	hpInputV = inputs[HP_INPUT].getVoltage();
@@ -45,11 +48,20 @@ void Dip::process(const ProcessArgs& args) {
     hpFilter.setCutoff(hpFrequency);
     hpFilter.process(inputV);
 
-    float lpOutputV = lpFilter.output;
-    float hpOutputV = hpFilter.highpass;
-
-    outputV = hpOutputV;  // lpOutputV + ;
+    outputV = lpFilter.output;  // lpFilter.output + ;
     outputs[OUTPUT].setVoltage(outputV);
+
+    // Debug messages
+    if (dBugConnected()) {
+        DBugMessages debugMsg;
+        // DEBUG("Dbug Connected to Dip");
+        sprintf(debugMsg[0], "LP Param: %f", lpParam);
+        // DEBUG("Debug Msg %s", debugMsg[0]);
+        sprintf(debugMsg[1], "LP Freq: %f", lpFrequency);
+        sprintf(debugMsg[2], "HP Param: %f", hpParam);
+        sprintf(debugMsg[3], "HP Freq: %f", hpFrequency);
+        sendToDBug(debugMsg);
+    }
 }
 
 struct DipWidget : CSModuleWidget {
