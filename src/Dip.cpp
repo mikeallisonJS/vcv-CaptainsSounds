@@ -1,7 +1,6 @@
 #include "Dip.hpp"
 #include <math.h>
 #include <rack.hpp>
-#include <sstream>
 #include "DBug.hpp"
 #include "dsp.hpp"
 #include "plugin.hpp"
@@ -15,51 +14,42 @@ void Dip::process(const ProcessArgs& args) {
         return;
 
     inputV = inputs[INPUT].getVoltage();
+
     lpParam = params[LP_PARAM].getValue();
-    lpFrequency = decimalToHz(lpParam);
     // Use Low pass CV if connected
-    // if(inputs[LP_INPUT].isConnected()) {
-    // 	lpInputV = inputs[LP_INPUT].getVoltage();
-    // 	// TODO: figure this shit out
-    // 	// lpFilter.frequency = pow((lpInputV * 10), ); //10v to 100%
-    // } else {
-    // 	lpFilter.frequency = params[LP_PARAM].getValue();
-    // }
-
-    hpFrequency = decimalToHz(params[HP_PARAM].getValue());
-    // Use HP CV if connected
-    // if(inputs[HP_INPUT].isConnected()) {
-    // 	hpInputV = inputs[HP_INPUT].getVoltage();
-    // 	// hpFilter.frequency = pow((hpInputV * 10), ); //10v to 100%
-    // } else {
-    // 	hpFilter.frequency = params[LP_PARAM].getValue();
-    // }
-
-    // if (hpFrequency <= lpFrequency) {
-    //     outputs[OUTPUT].setVoltage(inputV);
-    //     return;
-    // }
-
+    if (inputs[LP_INPUT].isConnected()) {
+        lpInputV = clamp10VUnipolar(inputs[LP_INPUT].getVoltage());
+        lpParam = lpInputV / 10.f;
+    }
+    lpFrequency = decimalToHz(lpParam);
     lpFilter.sampleRate = args.sampleRate;
     lpFilter.setCutoff(lpFrequency);
     lpFilter.process(inputV);
 
+    hpParam = params[HP_PARAM].getValue();
+    // Use HP CV if connected
+    if (inputs[HP_INPUT].isConnected()) {
+        hpInputV = clamp10VUnipolar(inputs[HP_INPUT].getVoltage());
+        hpParam = hpInputV / 10.f;
+    }
+    hpFrequency = decimalToHz(hpParam);
     hpFilter.sampleRate = args.sampleRate;
     hpFilter.setCutoff(hpFrequency);
     hpFilter.process(inputV);
 
-    outputV = lpFilter.output;  // lpFilter.output + ;
+    outputV = clamp5VBipolar((lpFilter.output + (inputV - hpFilter.output)) / 2.f);
     outputs[OUTPUT].setVoltage(outputV);
 
     // Debug messages
     if (dBugConnected()) {
         DBugMessages debugMsg;
-        // DEBUG("Dbug Connected to Dip");
         sprintf(debugMsg[0], "LP Param: %f", lpParam);
-        // DEBUG("Debug Msg %s", debugMsg[0]);
         sprintf(debugMsg[1], "LP Freq: %f", lpFrequency);
         sprintf(debugMsg[2], "HP Param: %f", hpParam);
         sprintf(debugMsg[3], "HP Freq: %f", hpFrequency);
+        sprintf(debugMsg[4], "Input Voltage: %f", inputV);
+        sprintf(debugMsg[5], "Output Voltage: %f", outputV);
+
         sendToDBug(debugMsg);
     }
 }
