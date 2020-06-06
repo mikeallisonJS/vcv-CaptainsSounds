@@ -20,9 +20,9 @@ void DBug::process(const ProcessArgs& args) {
 
 struct DBugWidget : CSModuleWidget {
     const Vec offset = Vec(8, 30);
-    const Vec displaySize = Vec(108, 220);
+    const Vec displaySize = Vec(288, 220);
     DBugWidget(DBug* module) {
-        hp = 8;
+        hp = 20;
         setModule(module);
         box.size = Vec(RACK_GRID_WIDTH * hp, RACK_GRID_HEIGHT);
 

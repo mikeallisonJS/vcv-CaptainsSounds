@@ -7,7 +7,7 @@ using namespace captainssounds;
 
 namespace captainssounds {
     const int DBUG_MAX_LINES = 20;
-    const int DBUG_MAX_CHARS = 100;
+    const int DBUG_MAX_CHARS = 256;
     // const int DBUG_MAX_REDRAW_COUNT = 2147400000;  //max int minus a few cause it went negative
     typedef char** DBugMessagesPtr;
     typedef char DBugMessages[DBUG_MAX_LINES][DBUG_MAX_CHARS];
