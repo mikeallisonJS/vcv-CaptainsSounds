@@ -28,6 +28,7 @@ extern Plugin* pluginInstance;
 extern Model* modelBlank901;
 extern Model* modelBlank902;
 extern Model* modelBlank904;
+extern Model* modelBlank908;
 extern Model* modelDBug;
 extern Model* modelDip;
 extern Model* modelIMO;

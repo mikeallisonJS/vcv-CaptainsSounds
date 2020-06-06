@@ -54,4 +54,4 @@ namespace captainssounds {
 Model* modelBlank901 = createModel<Blank901, Blank901Widget>("Blank901");
 Model* modelBlank902 = createModel<Blank902, Blank902Widget>("Blank902");
 Model* modelBlank904 = createModel<Blank904, Blank904Widget>("Blank904");
-Model* modelBlank908 = createModel<Blank908, Blank904Widget>("Blank908");
+Model* modelBlank908 = createModel<Blank908, Blank908Widget>("Blank908");

@@ -11,6 +11,7 @@ All modules are available for free in the [VCV Rack library](https://captainssou
 ## Modules
 
 - [Blanks](#blanks)
+- [Filters](#filters)
 - [Limiters](#limiters)
 - [Multipliers](#mults)
 - [Oscillators](#osc)
@@ -27,6 +28,13 @@ A 2 HP Blank with the 9Oh theme
 #### Blank904
 A 4 HP Blank with the 9Oh theme
 
+#### Blank908
+An 8 HP Blank with the 9Oh theme
+
+### <a name="filters"></a> Filters
+
+#### Dip
+Parallel High-Pass, Low-Pass Huovilainen Moog style 4-stage ladder filter
 
 ### <a name="mults"></a> Limiters
 
@@ -50,6 +58,9 @@ Oscillator with locked pitch by octave & note. Also allows for v/oct overrides r
 
 
 ### <a name="utils"></a> Utilities
+
+#### DBug
+Debug expander allowing for simple debugging from any module for any developer!
 
 #### Pow
 Uni-polar and Bi-polar voltage generator and attenuator
