@@ -1,6 +1,5 @@
 # folders
 /.vs
-/.vscode
 /build
 /CMakeFiles
 /dep

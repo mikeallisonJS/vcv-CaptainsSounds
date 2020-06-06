@@ -11,6 +11,7 @@ All modules are available for free in the [VCV Rack library](https://captainssou
 ## Modules
 
 - [Blanks](#blanks)
+- [Filters](#filters)
 - [Limiters](#limiters)
 - [Multipliers](#mults)
 - [Oscillators](#osc)
@@ -27,6 +28,13 @@ A 2 HP Blank with the 9Oh theme
 #### Blank904
 A 4 HP Blank with the 9Oh theme
 
+#### Blank908
+An 8 HP Blank with the 9Oh theme
+
+### <a name="filters"></a> Filters
+
+#### Dip
+Parallel High-Pass, Low-Pass Huovilainen Moog style 4-stage ladder filter
 
 ### <a name="mults"></a> Limiters
 
@@ -51,12 +59,23 @@ Oscillator with locked pitch by octave & note. Also allows for v/oct overrides r
 
 ### <a name="utils"></a> Utilities
 
+#### DBug
+Debug expander allowing for simple debugging from any module for any developer!
+
 #### Pow
 Uni-polar and Bi-polar voltage generator and attenuator
 
 ## License
 
 All source code is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.txt).
+
+## Documentation
+
+Right now, I'm more focused on music creation and module creation. I'm trying to make my modules' functions obvious through name, description and type. If something isn't self obvious, shoot me an email or file an issue. If you're dying to write up documentation, let's get together and make it happen.
+
+## Design
+
+Right now, this is a one-man, open-source shop. I'm a developer by nature, and my designs are utilitarian at best. If you're interested in assisting with the graphic design, I'd love to see what you have in mind. 
 
 ## Issues and Feedback
 
@@ -65,6 +84,8 @@ Bug reports and feedback are welcome: please use the [issue tracker](https://git
 ## Acknowledgements
 
 The Github Actions auto-build scripts under [.github/](.github) are originally from [SubmarineFree](https://github.com/david-c14/SubmarineFree) -- thanks @david-c14 and @dewb -- find a detailed explanation [here](https://github.com/david-c14/SubmarineFree/wiki/Cross-compiling-using-github-actions).
+
+The Moog Ladder filter dependency is provided by @ddiakopoulos under "The Unlicense" license. The original source code can be found [here](https://github.com/ddiakopoulos/MoogLadders).
 
 ## Financial support and sponsorship
 All donations are extremely appreciated.

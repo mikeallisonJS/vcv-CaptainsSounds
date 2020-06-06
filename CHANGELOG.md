@@ -1,3 +1,13 @@
+### 1.0.5 (6/5/2020)
+- Added DIP module parallel HP/LP filter - Huovilainen Moog Ladder based
+- Added DBug module debug extender for developers
+- Added 8hp blank module
+- Added CSFilterBase base internally
+- Added CSModule base internally
+- Added clang-format
+- Added vscode project files to repo
+- Added MoogLadders dependency
+
 ### 1.0.4 (5/23/2020)
 - Added MIO 3->1 dual polyphonic mixer
 - Added IMO 1->3 dual polyphonic multiplier

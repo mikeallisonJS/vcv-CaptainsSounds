@@ -1,10 +1,10 @@
 #pragma once
-#include "plugin.hpp"
 #include "Oscillator.hpp"
+#include "plugin.hpp"
 
-namespace captainssounds{
+namespace captainssounds {
     struct VBNO : Module {
-          enum ParamIds {
+        enum ParamIds {
             OCTAVE_PARAM,
             NOTE_PARAM,
             WAVE_PARAM,
@@ -28,11 +28,11 @@ namespace captainssounds{
         float octaveInputV;
         float notesFromA;
         float noteInputV;
-        float waveInputV;        
+        float waveInputV;
 
         VBNO() {
-            octavesFromA4 = -1.f; // C4
-            notesFromA = 3.f; // C
+            octavesFromA4 = -1.f;  // C4
+            notesFromA = 3.f;      // C
             config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS);
             configParam(OCTAVE_PARAM, -5.f, 3.f, octavesFromA4, "Octave");
             configParam(NOTE_PARAM, 0.f, 11.f, notesFromA, "Base note");
@@ -41,6 +41,6 @@ namespace captainssounds{
 
         void process(const ProcessArgs& args) override;
     };
-}
+}  // namespace captainssounds
 
 extern Model* modelVBNO;

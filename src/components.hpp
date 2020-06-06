@@ -4,7 +4,7 @@
 using namespace rack;
 using namespace rack::componentlibrary;
 
-extern Plugin *pluginInstance;
+extern Plugin* pluginInstance;
 
 namespace captainssounds {
     namespace components {
@@ -19,10 +19,10 @@ namespace captainssounds {
             }
         };
         struct Round909Port : app::SvgPort {
-	        Round909Port() {
-		        setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Components/Round909Jack.svg")));
+            Round909Port() {
+                setSvg(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Components/Round909Jack.svg")));
             }
-	    };
+        };
 
         struct CSLogo : app::SvgScrew {
             CSLogo() {
@@ -40,5 +40,5 @@ namespace captainssounds {
                 snap = true;
             }
         };
-    }
-}
+    }  // namespace components
+}  // namespace captainssounds

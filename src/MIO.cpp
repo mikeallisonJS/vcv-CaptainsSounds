@@ -1,14 +1,14 @@
-#include "captainssounds.hpp"
 #include "MIO.hpp"
 #include <math.h>
+#include "captainssounds.hpp"
 
 using namespace captainssounds;
 
 void MIO::process(const ProcessArgs& args) {
     bool connectedA = outputs[OUTPUT_A].isConnected();
 
-	// Handle input A
-	if (connectedA) {
+    // Handle input A
+    if (connectedA) {
         for (int i = 0; i < numChannels; i++) {
             outputAV[i] = 0.f;
             for (int j = 0; j < 3; j++) {
@@ -32,13 +32,13 @@ void MIO::process(const ProcessArgs& args) {
 }
 
 struct MIOWidget : CSMultplitModuleWidget {
-	MIOWidget(MIO* module) {
-		hp = 2;
-		setModule(module);		
+    MIOWidget(MIO* module) {
+        hp = 2;
+        setModule(module);
 
-		setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/MIO.svg")));
-		addScrews();
-        
+        setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/MIO.svg")));
+        addScrews();
+
         addJack(0, INPUT_JACK, MIO::INPUT_1);
         addJack(1, INPUT_JACK, MIO::INPUT_2);
         addJack(2, INPUT_JACK, MIO::INPUT_3);
@@ -50,8 +50,7 @@ struct MIOWidget : CSMultplitModuleWidget {
         addJack(7, INPUT_JACK, MIO::INPUT_6);
         //skip 1
         addJack(9, OUTPUT_JACK, MIO::OUTPUT_B);
-	}
+    }
 };
-
 
 Model* modelMIO = createModel<MIO, MIOWidget>("MIO");
