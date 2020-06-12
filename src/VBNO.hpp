@@ -1,9 +1,10 @@
 #pragma once
+#include "CSModule.hpp"
 #include "Oscillator.hpp"
-#include "plugin.hpp"
+
 
 namespace captainssounds {
-    struct VBNO : Module {
+    struct VBNO : CSModule {
         enum ParamIds {
             OCTAVE_PARAM,
             NOTE_PARAM,

@@ -18,7 +18,7 @@ namespace captainssounds {
         //     REFRESH_PARAM,
         //     NUM_PARAMS
         // };
-        int redrawSplit = 1;
+        // int redrawSplit = 1;
 
         DBug() {
             reset();
@@ -39,6 +39,7 @@ namespace captainssounds {
         const int yOffset = 10;
         // int redrawCount = DBUG_MAX_REDRAW_COUNT;  // start at max to force initial data
         DBugMessagesPtr incomingMessage;
+
         DBugDisplay(DBug* dbugmodule) {
             module = dbugmodule;
             font = APP->window->loadFont(asset::plugin(pluginInstance, "res/fonts/nunito/Nunito-Bold.ttf"));

@@ -1,8 +1,8 @@
 #pragma once
-#include "plugin.hpp"
+#include "CSModule.hpp"
 
 namespace captainssounds {
-    struct BlankModule : Module {
+    struct BlankModule : CSModule {
         BlankModule() { config(0, 0, 0); }
     };
 
