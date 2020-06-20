@@ -1,8 +1,8 @@
 #pragma once
-#include "plugin.hpp"
+#include "CSModule.hpp"
 
 namespace captainssounds {
-    struct IMO : Module {
+    struct IMO : CSModule {
         enum inputIds {
             INPUT_A,
             INPUT_B,

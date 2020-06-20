@@ -1,10 +1,10 @@
 #pragma once
-#include "plugin.hpp"
+#include "CSModule.hpp"
 
 using namespace captainssounds;
 
 namespace captainssounds {
-    struct Pow : Module {
+    struct Pow : CSModule {
         enum ParamIds {
             UNI_PARAM,
             BI_PARAM,

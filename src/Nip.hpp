@@ -1,10 +1,10 @@
 #pragma once
-#include "plugin.hpp"
+#include "CSModule.hpp"
 
 using namespace captainssounds;
 
 namespace captainssounds {
-    struct Nip : Module {
+    struct Nip : CSModule {
         enum ParamIds {
             GAIN_PARAM,
             CEIL_PARAM,
