@@ -14,15 +14,17 @@ namespace captainssounds {
 
     //TODO: Add working refresh knob
     struct DBug : Module {
-        // enum ParamIds {
-        //     REFRESH_PARAM,
-        //     NUM_PARAMS
-        // };
+        enum ParamIds {
+            // REFRESH_PARAM,
+            NUM_PARAMS
+        };
         int redrawSplit = 1;
+        DBugMessagesPtr incomingMessage;
 
         DBug() {
             reset();
-            // config(NUM_PARAMS, 0, 0);
+            this->incomingMessage = (DBugMessagesPtr)this->leftExpander.consumerMessage;
+            config(NUM_PARAMS, 0, 0);
             // configParam(REFRESH_PARAM, DBUG_MAX_REDRAW_COUNT, 1, (redrawSplit), "Refresh Time", "frame split");
         }
         ~DBug() {
@@ -38,7 +40,7 @@ namespace captainssounds {
         DBug* module;
         const int yOffset = 10;
         // int redrawCount = DBUG_MAX_REDRAW_COUNT;  // start at max to force initial data
-        DBugMessagesPtr incomingMessage;
+
         DBugDisplay(DBug* dbugmodule) {
             module = dbugmodule;
             font = APP->window->loadFont(asset::plugin(pluginInstance, "res/fonts/nunito/Nunito-Bold.ttf"));
