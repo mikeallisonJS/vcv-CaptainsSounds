@@ -30,7 +30,13 @@ void Nip::process(const ProcessArgs& args) {
     inputV = clamp5VBipolar(inputs[INPUT].getVoltage());
 
     // Process
-    output = clamp5VBipolar(inputV * gainValue);
+    inputUpsampler.process(inputV, inputBuffer);
+    for (int i = 0; i < UPSAMPLES; i++) {
+        outputBuffer[i] = clamp5VBipolar(inputBuffer[i] * gainValue);
+        clippedOutputBuffer[i] = tclamp(output, -ceilValue, ceilValue);
+    }
+    output = outputDecimator.process(outputBuffer);
+    clippedOutput = clippedOutputDecimator.process(clippedOutputBuffer);
 
     // Lights (each light is 3 enum lights)
     if (lightDivider.process()) {
@@ -44,11 +50,8 @@ void Nip::process(const ProcessArgs& args) {
         }
     }
 
-    // Process ceiling
-    output = tclamp(output, -ceilValue, ceilValue);
-
     // Output
-    outputs[OUTPUT].setVoltage(output);
+    outputs[OUTPUT].setVoltage(clippedOutput);
 }
 
 struct NipWidget : CSModuleWidget {
