@@ -43,16 +43,14 @@ struct DBugWidget : CSModuleWidget {
 };
 
 void DBugDisplay::drawScreen(const DrawArgs& args) {
-    {
-        nvgSave(args.vg);
-        nvgBeginPath(args.vg);
-        nvgRect(args.vg, 0, 0, box.size.x - 5, box.size.y);
-        nvgFillColor(args.vg, nvgRGBA(0x00, 0x00, 0x00, 0xff));
-        nvgFill(args.vg);
-        nvgStrokeColor(args.vg, nvgRGBA(0xc0, 0xc0, 0xc0, 0xff));
-        nvgStroke(args.vg);
-        nvgRestore(args.vg);
-    }
+    nvgSave(args.vg);
+    nvgBeginPath(args.vg);
+    nvgRect(args.vg, 0, 0, box.size.x - 5, box.size.y);
+    nvgFillColor(args.vg, nvgRGBA(0x00, 0x00, 0x00, 0xff));
+    nvgFill(args.vg);
+    nvgStrokeColor(args.vg, nvgRGBA(0xc0, 0xc0, 0xc0, 0xff));
+    nvgStroke(args.vg);
+    nvgRestore(args.vg);
 }
 
 void DBugDisplay::draw(const DrawArgs& args) {
