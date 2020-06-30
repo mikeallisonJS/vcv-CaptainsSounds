@@ -4,30 +4,45 @@
 using namespace captainssounds;
 
 void Pow::process(const ProcessArgs& args) {
-    // Uni-polar
-    uniParam = params[UNI_PARAM].getValue() / 10;  // 10V to decimal
-    if (inputs[UNI_INPUT].isConnected()) {
-        uniInputV = clamp10VUnipolar(inputs[UNI_INPUT].getVoltage());
-        uniOutputV = uniInputV * uniParam;
-    } else {
-        uniOutputV = 10.f * uniParam;
-    }
-    outputs[UNI_OUTPUT].setVoltage(uniOutputV);
-    if (lightDivider.process())
-        lights[UNI_LIGHT].setSmoothBrightness(uniOutputV / 10, args.sampleTime * lightDivider.getDivision());
+    // Connections
+    uniConnected = inputs[UNI_INPUT].isConnected();
+    biConnected = inputs[BI_INPUT].isConnected();
 
-    // Bi-polar
-    biParam = params[BI_PARAM].getValue() / 5;  // 5V to decimal
-    if (inputs[BI_INPUT].isConnected()) {
-        biInputV = clamp5VBipolar(inputs[BI_INPUT].getVoltage());
-        biOutputV = biInputV * biParam;
-    } else {
-        biOutputV = 5.f * biParam;
+    //Params
+    uniParam = params[UNI_PARAM].getValue() / 10;  // 10V to decimal
+    biParam = params[BI_PARAM].getValue() / 5;     // 5V to decimal
+
+    numInputsUni = uniConnected ? inputs[UNI_INPUT].getChannels() : NUM_POLY_CHANNELS;
+    numInputsBi = biConnected ? inputs[BI_INPUT].getChannels() : NUM_POLY_CHANNELS;
+
+    outputs[UNI_OUTPUT].setChannels(numInputsUni);
+    outputs[BI_OUTPUT].setChannels(numInputsBi);
+
+    for (int i = 0; i < numInputsUni; i++) {
+        // Uni-polar
+        if (uniConnected) {
+            uniInputV = clamp10VUnipolar(inputs[UNI_INPUT].getVoltage(i));
+            uniOutputV = uniInputV * uniParam;
+        } else {
+            uniOutputV = 10.f * uniParam;
+        }
+        outputs[UNI_OUTPUT].setVoltage(uniOutputV, i);
+        if (i == 0 && lightDivider.process())
+            lights[UNI_LIGHT].setSmoothBrightness(uniOutputV / 10, args.sampleTime * lightDivider.getDivision());
     }
-    outputs[BI_OUTPUT].setVoltage(biOutputV);
-    if (lightDivider.process()) {
-        lights[BI_LIGHT].setSmoothBrightness(biOutputV / 5, args.sampleTime * lightDivider.getDivision());
-        lights[BI_LIGHT + 1].setSmoothBrightness(-biOutputV / 5, args.sampleTime * lightDivider.getDivision());
+    for (int i = 0; i < numInputsBi; i++) {
+        // Bi-polar
+        if (biConnected) {
+            biInputV = clamp5VBipolar(inputs[BI_INPUT].getVoltage(i));
+            biOutputV = biInputV * biParam;
+        } else {
+            biOutputV = 5.f * biParam;
+        }
+        outputs[BI_OUTPUT].setVoltage(biOutputV, i);
+        if (i == 0 && lightDivider.process()) {
+            lights[BI_LIGHT].setSmoothBrightness(biOutputV / 5, args.sampleTime * lightDivider.getDivision());
+            lights[BI_LIGHT + 1].setSmoothBrightness(-biOutputV / 5, args.sampleTime * lightDivider.getDivision());
+        }
     }
 }
 

@@ -1,6 +1,7 @@
 #pragma once
+#include <rack.hpp>
 #include "CSModule.hpp"
-#include "rack.hpp"
+
 
 using namespace captainssounds;
 
@@ -37,23 +38,10 @@ namespace captainssounds {
 
         static const int UPSAMPLES = 2;
 
-        float ceilInputV;
-        float ceilParam;
-        float ceilValue;
-        float clippedOutput;
-        float clippedOutputBuffer[UPSAMPLES];
-        float gainInputV;
-        float gainParam;
-        float gainValue;
-        float inputV;
-        float inputValue;
-        float inputBuffer[UPSAMPLES];
-        float output;
-        float outputBuffer[UPSAMPLES];
         dsp::ClockDivider lightDivider;
-        dsp::Decimator<UPSAMPLES, 8> clippedOutputDecimator;
-        dsp::Upsampler<UPSAMPLES, 8> inputUpsampler;
-        dsp::Decimator<UPSAMPLES, 8> outputDecimator;
+        dsp::Decimator<UPSAMPLES, 8> clippedOutputDecimator[NUM_POLY_CHANNELS];
+        dsp::Upsampler<UPSAMPLES, 8> inputUpsampler[NUM_POLY_CHANNELS];
+        dsp::Decimator<UPSAMPLES, 8> outputDecimator[NUM_POLY_CHANNELS];
 
         Nip() {
             config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);

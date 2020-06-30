@@ -13,36 +13,37 @@ void Dip::process(const ProcessArgs& args) {
     if (!inputs[INPUT].isConnected())
         return;
 
-    inputV = inputs[INPUT].getVoltage();
+    float inputV = inputs[INPUT].getVoltage();
 
-    lpParam = params[LP_PARAM].getValue();
+    float lpParam = params[LP_PARAM].getValue();
     // Use Low pass CV if connected
+    float lpInputV;
     if (inputs[LP_INPUT].isConnected()) {
         lpInputV = clamp10VUnipolar(inputs[LP_INPUT].getVoltage());
         lpParam = lpInputV / 10.f;
     }
-    lpFrequency = decimalToHz(lpParam);
+    float lpFrequency = decimalToHz(lpParam);
     lpFilter.sampleRate = args.sampleRate;
     lpFilter.setCutoff(lpFrequency);
     lpFilter.process(inputV);
 
-    hpParam = params[HP_PARAM].getValue();
+    float hpParam = params[HP_PARAM].getValue();
     // Use HP CV if connected
+    float hpInputV;
     if (inputs[HP_INPUT].isConnected()) {
         hpInputV = clamp10VUnipolar(inputs[HP_INPUT].getVoltage());
         hpParam = hpInputV / 10.f;
     }
-    hpFrequency = decimalToHz(hpParam);
+    float hpFrequency = decimalToHz(hpParam);
     hpFilter.sampleRate = args.sampleRate;
     hpFilter.setCutoff(hpFrequency);
     hpFilter.process(inputV);
 
-    outputV = clamp5VBipolar((lpFilter.output + (inputV - hpFilter.output)) / 2.f);
+    float outputV = clamp5VBipolar((lpFilter.output + (inputV - hpFilter.output)) / 2.f);
     outputs[OUTPUT].setVoltage(outputV);
 
     // Debug messages
-    if (dBugConnected()) {
-        DBugMessages debugMsg;
+    if (dBugConnected() && isDBugRefresh()) {
         sprintf(debugMsg[0], "LP Param: %f", lpParam);
         sprintf(debugMsg[1], "LP Freq: %f", lpFrequency);
         sprintf(debugMsg[2], "HP Param: %f", hpParam);
@@ -52,6 +53,7 @@ void Dip::process(const ProcessArgs& args) {
 
         sendToDBug(debugMsg);
     }
+    increaseSampleCounter();
 }
 
 struct DipWidget : CSModuleWidget {
