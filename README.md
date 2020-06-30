@@ -39,7 +39,7 @@ Parallel High-Pass, Low-Pass Huovilainen Moog style 4-stage ladder filter
 ### <a name="mults"></a> Limiters
 
 #### Nip
-Hard clipper with ceiling
+Polyphonic Hard clipper/limiter with ceiling
 
 
 ### <a name="mults"></a> Multipliers 
@@ -63,7 +63,7 @@ Oscillator with locked pitch by octave & note. Also allows for v/oct overrides r
 Debug expander allowing for simple debugging from any module for any developer!
 
 #### Pow
-Uni-polar and Bi-polar voltage generator and attenuator
+Polyphonic Uni-polar and Bi-polar voltage generator and attenuator
 
 ## License
 

@@ -18,7 +18,6 @@ namespace captainssounds {
             NUM_OUTPUTS
         };
 
-        int numChannels = 16;
         float outputAV[16];
         float outputBV[16];
         int channelsA = 0;

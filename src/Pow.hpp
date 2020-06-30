@@ -26,12 +26,19 @@ namespace captainssounds {
             NUM_LIGHTS
         };
 
+        bool biConnected = false;
+        bool uniConnected = false;
+
         float biInputV;
         float biOutputV;
         float biParam;
         float uniInputV;
         float uniOutputV;
         float uniParam;
+
+        int numInputsBi;
+        int numInputsUni;
+
         dsp::ClockDivider lightDivider;
 
         Pow() {
@@ -39,6 +46,8 @@ namespace captainssounds {
             configParam(UNI_PARAM, 0.00f, 10.00f, 10.f, "10V Uni-polar Voltage", "%");
             configParam(BI_PARAM, -5.00f, 5.00f, 0.f, "5V Bi-polar Voltage", "%");
             lightDivider.setDivision(16);
+            outputs[UNI_OUTPUT].setChannels(NUM_POLY_CHANNELS);
+            outputs[BI_OUTPUT].setChannels(NUM_POLY_CHANNELS);
         }
 
         void process(const ProcessArgs& args) override;

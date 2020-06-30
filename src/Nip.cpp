@@ -8,47 +8,76 @@ void Nip::process(const ProcessArgs& args) {
     if (!inputs[INPUT].isConnected())
         return;
 
-    // Use Gain CV if connected
-    gainParam = params[GAIN_PARAM].getValue() / 100;  // 100% to decimal
-    if (inputs[GAIN_INPUT].isConnected()) {
-        gainInputV = clamp10VUnipolar(inputs[GAIN_INPUT].getVoltage()) * gainParam;
-        gainValue = gainInputV / 10;  // 10V to decimal
-    } else {
-        gainValue = gainParam;
-    }
+    float gainParam = params[GAIN_PARAM].getValue() / 100;  // 100% to decimal
+    float ceilParam = params[CEIL_PARAM].getValue() / 100;  // 100% to decimal
 
-    // Use Ceiling CV if connected
-    ceilParam = params[CEIL_PARAM].getValue() / 100;  // 100% to decimal
-    if (inputs[CEIL_INPUT].isConnected()) {
-        ceilInputV = clamp10VUnipolar(inputs[CEIL_INPUT].getVoltage()) / 10;  //10V to decimal
-        ceilValue = ceilInputV * ceilParam * 5;                               //decimal to 5V
-    } else {
-        ceilValue = ceilParam * 5;  // 100% to 5V
-    }
+    //Get channel count
+    int numChannels = inputs[INPUT].getChannels();
+    outputs[OUTPUT].setChannels(numChannels);
 
-    //Get Input
-    inputV = clamp5VBipolar(inputs[INPUT].getVoltage());
-
-    // Process
-    output = clamp5VBipolar(inputV * gainValue);
-
-    // Lights (each light is 3 enum lights)
-    if (lightDivider.process()) {
-        for (float i = 0.00f; i < 5.f; i += .5f) {
-            int index = i * 3 * 2;  //3 lights 2 steps per volt
-            float red = output > i && ceilValue <= i;
-            float green = !red && output > i ? 1.f : 0.f;
-            lights[index + 0].setSmoothBrightness(red, args.sampleTime * lightDivider.getDivision());
-            lights[index + 1].setSmoothBrightness(green, args.sampleTime * lightDivider.getDivision());
-            lights[index + 2].setBrightness(0.f);
+    // handle polyphony
+    for (int i = 0; i < numChannels; i++) {
+        // Use Gain CV if connected
+        float gainInputV;
+        float gainValue;
+        if (inputs[GAIN_INPUT].isConnected()) {
+            gainInputV = clamp10VUnipolar(inputs[GAIN_INPUT].getPolyVoltage(i)) * gainParam;
+            gainValue = gainInputV / 10;  // 10V to decimal
+        } else {
+            gainValue = gainParam;
         }
+
+        // Use Ceiling CV if connected
+        float ceilInputV;
+        float ceilValue;
+
+        if (inputs[CEIL_INPUT].isConnected()) {
+            ceilInputV = clamp10VUnipolar(inputs[CEIL_INPUT].getPolyVoltage(i)) / 10;  //10V to decimal
+            ceilValue = ceilInputV * ceilParam * 5;                                    //decimal to 5V
+        } else {
+            ceilValue = ceilParam * 5;  // 100% to 5V
+        }
+
+        //Get Input
+        float inputV = clamp5VBipolar(inputs[INPUT].getVoltage(i));
+
+        // Process
+        float inputBuffer[UPSAMPLES];
+        float outputBuffer[UPSAMPLES];
+        float clippedOutputBuffer[UPSAMPLES];
+
+        inputUpsampler[i].process(inputV, inputBuffer);
+        for (int j = 0; j < UPSAMPLES; j++) {
+            outputBuffer[j] = clamp5VBipolar(inputBuffer[j] * gainValue);
+            clippedOutputBuffer[j] = tclamp(outputBuffer[j], -ceilValue, ceilValue);
+        }
+        float output = outputDecimator[i].process(outputBuffer);
+        float clippedOutput = clippedOutputDecimator[i].process(clippedOutputBuffer);
+
+        // Lights (each light is 3 enum lights)
+        if (i == 0 && lightDivider.process()) {  //only display 1st value lights
+            for (float j = 0.00f; j < 5.f; j += .5f) {
+                int index = j * 3 * 2;  //3 lights 2 steps per volt
+                float red = output > j && ceilValue <= j;
+                float green = !red && output > j ? 1.f : 0.f;
+                lights[index + 0].setSmoothBrightness(red, args.sampleTime * lightDivider.getDivision());
+                lights[index + 1].setSmoothBrightness(green, args.sampleTime * lightDivider.getDivision());
+                lights[index + 2].setBrightness(0.f);
+            }
+        }
+        // Output
+        outputs[OUTPUT].setVoltage(clippedOutput, i);
+
+        // DBug
+        if (dBugConnected() && isDBugRefresh())
+            sprintf(debugMsg[i], "Channel %d Gain %f Ceiling %f In %f Out %f", i, gainValue, ceilValue, inputV, clippedOutput);
     }
 
-    // Process ceiling
-    output = tclamp(output, -ceilValue, ceilValue);
+    // DBug
+    if (dBugConnected() && isDBugRefresh())
+        sendToDBug(debugMsg);
 
-    // Output
-    outputs[OUTPUT].setVoltage(output);
+    increaseSampleCounter();
 }
 
 struct NipWidget : CSModuleWidget {

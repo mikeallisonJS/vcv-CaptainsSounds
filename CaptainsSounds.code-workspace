@@ -61,7 +61,14 @@
 			"iterator": "cpp",
 			"random": "cpp",
 			"ratio": "cpp",
-			"thread": "cpp"
+			"thread": "cpp",
+			"regex": "cpp",
+			"ctime": "cpp",
+			"locale": "cpp",
+			"xlocbuf": "cpp",
+			"xlocmes": "cpp",
+			"xlocmon": "cpp",
+			"xloctime": "cpp"
 		}
 	}
 }

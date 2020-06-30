@@ -7,27 +7,35 @@ using namespace captainssounds;
 void MIO::process(const ProcessArgs& args) {
     bool connectedA = outputs[OUTPUT_A].isConnected();
 
-    // Handle input A
+    // Handle output A
     if (connectedA) {
-        for (int i = 0; i < numChannels; i++) {
+        int numChannels = 1;
+        for (int i = 0; i < NUM_POLY_CHANNELS; i++) {
             outputAV[i] = 0.f;
             for (int j = 0; j < 3; j++) {
-                outputAV[i] = clamp10VBipolar(inputs[INPUT_1 + j].getPolyVoltage(i) + outputAV[i]);
+                int inputChannels = inputs[INPUT_1 + j].getChannels();
+                outputAV[i] = clamp10VBipolar(inputs[INPUT_1 + j].getVoltage(i) + outputAV[i]);
+                numChannels = inputChannels > numChannels ? inputChannels : numChannels;
             }
             outputs[OUTPUT_A].setVoltage(outputAV[i], i);
         }
+        outputs[OUTPUT_A].setChannels(numChannels);
     }
 
-    // Handle input B
+    // Handle output B
     if (outputs[OUTPUT_B].isConnected()) {
+        int numChannels = 1;
         int index = connectedA ? 3 : 0;
-        for (int i = 0; i < numChannels; i++) {
+        for (int i = 0; i < NUM_POLY_CHANNELS; i++) {
             outputBV[i] = 0.f;
             for (int j = index; j < 6; j++) {
-                outputBV[i] = clamp10VBipolar(inputs[INPUT_1 + j].getPolyVoltage(i) + outputBV[i]);
+                int inputChannels = inputs[INPUT_1 + j].getChannels();
+                outputBV[i] = clamp10VBipolar(inputs[INPUT_1 + j].getVoltage(i) + outputBV[i]);
+                numChannels = inputChannels > numChannels ? inputChannels : numChannels;
             }
             outputs[OUTPUT_B].setVoltage(outputBV[i], i);
         }
+        outputs[OUTPUT_B].setChannels(numChannels);
     }
 }
 

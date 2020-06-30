@@ -1,7 +1,7 @@
 #include "DBug.hpp"
 #include <math.h>
 #include <rack.hpp>
-#include <sstream>
+#include <regex>
 #include <string>
 #include "CSModule.hpp"
 #include "dsp.hpp"
@@ -9,15 +9,6 @@
 
 using namespace captainssounds;
 using namespace rack;
-
-void DBug::reset() {
-    leftExpander.consumerMessage = new DBugMessages;
-    leftExpander.producerMessage = new DBugMessages;
-}
-
-void DBug::process(const ProcessArgs& args) {
-    // redrawSplit = params[REFRESH_PARAM].getValue();
-}
 
 struct DBugWidget : CSModuleWidget {
     const Vec offset = Vec(8, 30);
@@ -37,8 +28,6 @@ struct DBugWidget : CSModuleWidget {
         display->box.size = displaySize;
         addChild(display);
 
-        // addParam(createParam<Round909Knob>(Vec(10, 250), module, DBug::REFRESH_PARAM));
-
         addScrews();
     }
 };
@@ -55,23 +44,31 @@ void DBugDisplay::drawScreen(const DrawArgs& args) {
 void DBugDisplay::draw(const DrawArgs& args) {
     drawScreen(args);
 
-    if (module && module->leftExpander.module && ((CSModule*)module->leftExpander.module)->dBugConnected() && typeid(module->incomingMessage).name() == typeid(DBugMessagesPtr).name()) {
+    // Check for module &  dbug on dbug bombs
+    if (isConnected() && isSafe()) {
+        incomingMessage = (DBugMessagesPtr)module->leftExpander.consumerMessage;
+        nvgSave(args.vg);
         nvgFontSize(args.vg, 9);
         nvgFontFaceId(args.vg, font->handle);
         nvgFillColor(args.vg, nvgRGBA(0x00, 0xFF, 0x00, 0xff));
-        // if (redrawCount >= module->redrawSplit) {
-        // redrawCount = 0;  //reset
-        // }
-        // redrawCount++;
-
-        nvgSave(args.vg);
-        for (int i = 0; i < (int)sizeof(module->incomingMessage); i++) {
-            const char* msg = module->incomingMessage[i];
-            if (msg != nullptr)
-                nvgText(args.vg, 5, 15 + (i * yOffset), msg, NULL);
+        for (int i = 0; i < (int)sizeof(incomingMessage); i++) {
+            std::string inc(incomingMessage[i]);
+            std::string msg = std::regex_replace(inc, std::regex(module->reg), "");
+            nvgText(args.vg, 5, 15 + (i * yOffset), msg.c_str(), NULL);
         }
         nvgRestore(args.vg);
-        Widget::draw(args);
     }
+    Widget::draw(args);
 }
+
+bool DBugDisplay::isConnected() {
+    return module && module->leftExpander.module;
+}
+
+bool DBugDisplay::isSafe() {
+    // TODO: Better bad parent module testing. Sadly, model pointer slug & id do not dereference properly
+    // At least test that dbug isn't being nested
+    return module->leftExpander.module->model != modelDBug;
+}
+
 Model* modelDBug = createModel<DBug, DBugWidget>("DBug");

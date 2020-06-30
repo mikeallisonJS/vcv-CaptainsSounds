@@ -30,17 +30,6 @@ namespace captainssounds {
 
         HuovilainenMoogFilter lpFilter;
         HuovilainenMoogFilter hpFilter;
-        float lpFrequency;
-        float lpInputV;
-        float lpParam;
-        float lpValue;
-        float hpFrequency;
-        float hpInputV;
-        float hpParam;
-        float hpValue;
-        int inputChannels;
-        float inputV;
-        float outputV;
 
         Dip() {
             config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS);

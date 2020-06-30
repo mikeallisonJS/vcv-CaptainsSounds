@@ -1,3 +1,16 @@
+### 1.0.6
+- Cleaned up Dbug output
+- Fixed Several Dbug crash scenarios (core modules still causing issues)
+- Added Test Rack to project
+- Added 2x oversampling in Nip to avoid aliasing (Not original plan, but it felt & sounded right)
+- Fixed several bugs that caused crashing & strange results in DBug
+- Added polyphony to Nip
+- Added polyphony to Pow
+- Cleaned up Dip internal code
+- Fix polyphony in MIO
+- Switched all non-blank modules to CSModule base internally
+- Added DBugMessages debugMsg to CSModule base class
+
 ### 1.0.5 (6/5/2020)
 - Added DIP module parallel HP/LP filter - Huovilainen Moog Ladder based
 - Added DBug module debug extender for developers
