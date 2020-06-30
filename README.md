@@ -60,7 +60,7 @@ Oscillator with locked pitch by octave & note. Also allows for v/oct overrides r
 ### <a name="utils"></a> Utilities
 
 #### DBug
-Debug expander allowing for simple debugging from any module for any developer!
+Debug expander allowing for simple debugging from any module for any developer! [How to setup DBug for your own plugins](https://github.com/captainssounds/vcv-CaptainsSounds/wiki/How-to-setup-your-plugins-to-use-DBug)
 
 #### Pow
 Polyphonic Uni-polar and Bi-polar voltage generator and attenuator
