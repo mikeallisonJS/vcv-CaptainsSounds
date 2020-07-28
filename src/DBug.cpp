@@ -67,8 +67,10 @@ bool DBugDisplay::isConnected() {
 
 bool DBugDisplay::isSafe() {
     // TODO: Better bad parent module testing. Sadly, model pointer slug & id do not dereference properly
-    // At least test that dbug isn't being nested
-    return module->leftExpander.module->model != modelDBug;
+    // At least test that dbug isn't being nested and expander module is of base CSModule
+    auto notNested = module->leftExpander.module->model != modelDBug;
+    auto isDBug = dynamic_cast<CSModule *>(module->leftExpander.module) != nullptr;
+    return notNested && isDBug;
 }
 
 Model* modelDBug = createModel<DBug, DBugWidget>("DBug");
