@@ -89,7 +89,7 @@ The Github Actions auto-build scripts under [.github/](.github) are originally f
 
 The Moog Ladder filter dependency is provided by @ddiakopoulos under "The Unlicense" license. The original source code can be found [here](https://github.com/ddiakopoulos/MoogLadders).
 
-Special thanks to @curlymorphic for finally resolving the pesky crashes caused by DBug and some 3rd party modules
+Special thanks to [curlymorphic](https://github.com/curlymorphic) for finally resolving the pesky crashes caused by DBug and some 3rd party modules
 
 ## Financial support and sponsorship
 All donations are extremely appreciated.
