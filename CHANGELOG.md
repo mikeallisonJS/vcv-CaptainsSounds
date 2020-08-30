@@ -1,3 +1,6 @@
+### 1.0.7
+- Fix Dbug crashes on 3rd party non-CSModule modules
+
 ### 1.0.6
 - Cleaned up Dbug output
 - Fixed Several Dbug crash scenarios (core modules still causing issues)
