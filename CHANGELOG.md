@@ -1,3 +1,7 @@
+### 2.0.0
+- Update to VCV Rack SDK 2.0 pre-release
+- Remove DBug for now due to crashes with new SDK.
+
 ### 1.0.7
 - Fix Dbug crashes on 3rd party non-CSModule modules
 

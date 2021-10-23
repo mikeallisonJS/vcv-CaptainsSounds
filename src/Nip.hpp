@@ -2,7 +2,6 @@
 #include <rack.hpp>
 #include "CSModule.hpp"
 
-
 using namespace captainssounds;
 
 namespace captainssounds {
@@ -44,6 +43,7 @@ namespace captainssounds {
         dsp::Decimator<UPSAMPLES, 8> outputDecimator[NUM_POLY_CHANNELS];
 
         Nip() {
+            CSModule();
             config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
             configParam(GAIN_INPUT, 0.f, 200.f, 100.f, "Gain", "%");
             configParam(CEIL_PARAM, 0.f, 100.f, 100.f, "Ceiling", "%");

@@ -11,7 +11,7 @@ void init(Plugin* p) {
     p->addModel(modelBlank902);
     p->addModel(modelBlank904);
     p->addModel(modelBlank908);
-    p->addModel(modelDBug);
+    // p->addModel(modelDBug);
     p->addModel(modelDip);
     p->addModel(modelIMO);
     p->addModel(modelMIO);

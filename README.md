@@ -60,6 +60,7 @@ Oscillator with locked pitch by octave & note. Also allows for v/oct overrides r
 ### <a name="utils"></a> Utilities
 
 #### DBug
+(Currently Unavailable in Rack 2.0)
 Debug expander allowing for simple debugging from any module for any developer!
 
 [How to setup DBug for your own plugins](https://github.com/captainssounds/vcv-CaptainsSounds/wiki/How-to-setup-your-plugins-to-use-DBug)

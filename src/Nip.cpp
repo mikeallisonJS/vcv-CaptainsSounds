@@ -69,13 +69,13 @@ void Nip::process(const ProcessArgs& args) {
         outputs[OUTPUT].setVoltage(clippedOutput, i);
 
         // DBug
-        if (dBugConnected() && isDBugRefresh())
-            sprintf(debugMsg[i], "Channel %d Gain %f Ceiling %f In %f Out %f", i, gainValue, ceilValue, inputV, clippedOutput);
+        // if (dBugConnected() && isDBugRefresh())
+        //     sprintf(debugMsg[i], "Channel %d Gain %f Ceiling %f In %f Out %f", i, gainValue, ceilValue, inputV, clippedOutput);
     }
 
     // DBug
-    if (dBugConnected() && isDBugRefresh())
-        sendToDBug(debugMsg);
+    // if (dBugConnected() && isDBugRefresh())
+    //     sendToDBug(debugMsg);
 
     increaseSampleCounter();
 }

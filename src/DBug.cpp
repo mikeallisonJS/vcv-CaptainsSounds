@@ -46,11 +46,22 @@ void DBugDisplay::draw(const DrawArgs& args) {
 
     // Check for module &  dbug on dbug bombs
     if (isConnected() && isSafe()) {
-        incomingMessage = (DBugMessagesPtr)module->leftExpander.consumerMessage;
+        auto consumerMessage = module->leftExpander.consumerMessage;
+        // if (dynamic_cast<DBugMessagesPtr>(consumerMessage) == nullptr) {
+        //     // if (typeid(consumerMessage) != typeid(DBugMessagesPtr)) {
+        //     return;
+        // }
+
+        incomingMessage = (DBugMessagesPtr)consumerMessage;
+
+        // DEBUG("incoming Messages %s", typeid(consumerMessage).name() == typeid(DBugMessages));
         nvgSave(args.vg);
         nvgFontSize(args.vg, 9);
         nvgFontFaceId(args.vg, font->handle);
         nvgFillColor(args.vg, nvgRGBA(0x00, 0xFF, 0x00, 0xff));
+        // if (incomingMessage == nullptr) {
+        //     return;
+        // }
         for (int i = 0; i < (int)sizeof(incomingMessage); i++) {
             std::string inc(incomingMessage[i]);
             std::string msg = std::regex_replace(inc, std::regex(module->reg), "");
@@ -66,7 +77,6 @@ bool DBugDisplay::isConnected() {
 }
 
 bool DBugDisplay::isSafe() {
-    // TODO: Better bad parent module testing. Sadly, model pointer slug & id do not dereference properly
     auto leftExpanderModule = module->leftExpander.module;
     bool notNested = leftExpanderModule->model != modelDBug;
     bool isDBugable = dynamic_cast<CSModule*>(leftExpanderModule) != nullptr;
