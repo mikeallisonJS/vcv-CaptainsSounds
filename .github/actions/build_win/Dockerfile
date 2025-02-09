@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:bookworm
 
 LABEL "com.github.actions.name"="VCVRackPluginBuilder-Windows"
 LABEL "com.github.actions.description"="Builds a VCV Rack plugin for Windows"
