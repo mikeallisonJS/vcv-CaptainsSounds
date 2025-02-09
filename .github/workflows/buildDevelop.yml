@@ -1,18 +1,18 @@
 on:
   push:
     branches:
-    - master
+      - master
   pull_request:
     branches:
-    - master
+      - master
 name: Development
 env:
-  RACK_SDK_VERSION: 1.1.6
+  RACK_SDK_VERSION: 2.6.0
 jobs:
   buildLinux:
     name: Build Linux
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Build Linux
-      uses: ./.github/actions/build_linux
+      - uses: actions/checkout@master
+      - name: Build Linux
+        uses: ./.github/actions/build_linux
