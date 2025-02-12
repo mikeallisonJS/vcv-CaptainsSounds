@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/cpp:1-debian-11
+FROM --platform=linux/amd64 mcr.microsoft.com/devcontainers/cpp:1-debian-11
 
 ARG REINSTALL_CMAKE_VERSION_FROM_SOURCE="none"
 
@@ -16,7 +16,10 @@ RUN if [ "${REINSTALL_CMAKE_VERSION_FROM_SOURCE}" != "none" ]; then \
 # Additional packages from https://vcvrack.com/manual/Building
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
-     unzip git gdb curl cmake libx11-dev libglu1-mesa-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev zlib1g-dev libasound2-dev libgtk2.0-dev libgtk-3-dev libjack-jackd2-dev jq zstd libpulse-dev pkg-config
+    unzip git gdb curl cmake make gcc g++ \
+    libx11-dev libglu1-mesa-dev libxrandr-dev libxinerama-dev libxcursor-dev \
+    libxi-dev zlib1g-dev libasound2-dev libgtk2.0-dev libgtk-3-dev \
+    libjack-jackd2-dev jq zstd libpulse-dev pkg-config wget
 
 WORKDIR /workspace/vcv
 
