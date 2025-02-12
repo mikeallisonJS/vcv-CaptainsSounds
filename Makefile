@@ -26,7 +26,7 @@ OBJECTS +=
 DEPS += $(moogFilters)
 
 $(moogFilters):
-	cd dep && $(WGET) https://github.com/captainssounds/MoogLadders/archive/master.zip
+	cd dep && $(WGET) https://github.com/mikeallisonJS/MoogLadders/archive/master.zip
 	cd dep && $(UNZIP) ./master.zip
 
 # Include the Rack plugin Makefile framework
