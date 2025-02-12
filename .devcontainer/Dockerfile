@@ -20,7 +20,4 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 WORKDIR /workspace/vcv
 
-RUN wget https://vcvrack.com/downloads/Rack-SDK-latest-lin-x64.zip
-RUN unzip Rack-SDK-latest-lin-x64.zip
-RUN mv Rack-SDK-latest-lin-x64 Rack-SDK
 ENV RACK_DIR=/workspace/vcv/Rack-SDK
