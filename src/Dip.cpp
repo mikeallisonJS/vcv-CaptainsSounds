@@ -42,15 +42,20 @@ void Dip::process(const ProcessArgs& args) {
     float outputV = clamp5VBipolar((lpFilter.output + (inputV - hpFilter.output)) / 2.f);
     outputs[OUTPUT].setVoltage(outputV);
 
-    // Debug messages
-    if (dBugConnected() && isDBugRefresh()) {
-        sprintf(debugMsg[0], "LP Param: %f", lpParam);
-        sprintf(debugMsg[1], "LP Freq: %f", lpFrequency);
-        sprintf(debugMsg[2], "HP Param: %f", hpParam);
-        sprintf(debugMsg[3], "HP Freq: %f", hpFrequency);
-        sprintf(debugMsg[4], "Input Voltage: %f", inputV);
-        sprintf(debugMsg[5], "Output Voltage: %f", outputV);
-
+    // Debug messages (temporary always-on test to validate DBug path)
+    {
+        static int logCounter = 0;
+        if ((logCounter++ & 0x3FFF) == 0) {
+            DEBUG("Dip: inputConnected=1 (writing debugMsg)");
+        }
+        DEBUG("Dip::process sending");
+        snprintf(debugMsg[0], DBUG_MAX_CHARS, "%s", "TEST-DIP");
+        snprintf(debugMsg[1], DBUG_MAX_CHARS, "LP Param: %.4f", lpParam);
+        snprintf(debugMsg[2], DBUG_MAX_CHARS, "LP Freq: %.2f", lpFrequency);
+        snprintf(debugMsg[3], DBUG_MAX_CHARS, "HP Param: %.4f", hpParam);
+        snprintf(debugMsg[4], DBUG_MAX_CHARS, "HP Freq: %.2f", hpFrequency);
+        snprintf(debugMsg[5], DBUG_MAX_CHARS, "In: %.3f  Out: %.3f", inputV, outputV);
+        for (int i = 6; i < DBUG_MAX_LINES; i++) debugMsg[i][0] = '\0';
         sendToDBug(debugMsg);
     }
     increaseSampleCounter();

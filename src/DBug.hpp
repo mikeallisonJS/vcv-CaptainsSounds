@@ -10,8 +10,8 @@ using namespace captainssounds;
 namespace captainssounds {
     const int DBUG_MAX_LINES = 20;
     const int DBUG_MAX_CHARS = 256;
-    typedef char** DBugMessagesPtr;
     typedef char DBugMessages[DBUG_MAX_LINES][DBUG_MAX_CHARS];
+    typedef DBugMessages* DBugMessagesPtr;
 
     struct DBug : Module {
         enum ParamIds {

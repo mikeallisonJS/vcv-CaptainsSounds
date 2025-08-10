@@ -1,5 +1,6 @@
 #include "CSModule.hpp"
 #include "DBug.hpp"
+#include <cstring>
 
 using namespace captainssounds;
 
@@ -21,11 +22,22 @@ void CSModule::resetSampleCounter() {
 
 void CSModule::sendToDBug(DBugMessages msgs) {
     if (dBugConnected() && isDBugRefresh()) {
-        DBugMessagesPtr message = (DBugMessagesPtr)rightExpander.module->leftExpander.producerMessage;
+        // Copy source lines into our stable local buffer
         for (int i = 0; i < DBUG_MAX_LINES; i++) {
-            message[i] = msgs[i];
+            if (msgs[i][0] != '\0') {
+                std::strncpy(debugMsg[i], msgs[i], DBUG_MAX_CHARS - 1);
+                debugMsg[i][DBUG_MAX_CHARS - 1] = '\0';
+            } else {
+                debugMsg[i][0] = '\0';
+            }
         }
-        rightExpander.module->leftExpander.messageFlipRequested = true;
+        // Place a sentinel in the final line so the reader can validate the buffer
+        std::strncpy(debugMsg[DBUG_MAX_LINES - 1], "CSDBG", DBUG_MAX_CHARS - 1);
+        debugMsg[DBUG_MAX_LINES - 1][DBUG_MAX_CHARS - 1] = '\0';
+        // Minimal send trace
+        DEBUG("CSModule: first line -> %s", debugMsg[0]);
+        rightExpander.producerMessage = &debugMsg;
+        rightExpander.messageFlipRequested = true;
+        resetSampleCounter();
     }
-    resetSampleCounter();
 }

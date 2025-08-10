@@ -12,7 +12,15 @@ namespace captainssounds {
         int dBugRefreshRate = 16;
         int sampleCount = dBugRefreshRate;
 
-        CSModule() {}
+        CSModule() {
+            // Initialize debug message buffer
+            for (int i = 0; i < DBUG_MAX_LINES; i++) {
+                debugMsg[i][0] = '\0';
+            }
+            // No buffers published by default; sender will set producer at send time
+            rightExpander.producerMessage = nullptr;
+            rightExpander.consumerMessage = nullptr;
+        }
 
         bool dBugConnected();
         void increaseSampleCounter();

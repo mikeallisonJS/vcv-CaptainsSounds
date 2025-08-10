@@ -68,6 +68,12 @@
       "tags": ["Digital", "Oscillator", "Tuner"]
     },
     {
+      "slug": "DBug",
+      "name": "DBug",
+      "description": "Debug expander allowing for simple debug from any module.",
+      "tags": ["Visual", "Utility", "Expander"]
+    },
+    {
       "slug": "Dip",
       "name": "Dip",
       "description": "Parallel High-pass & Low-pass filter. Like a notch filter on sterioids.",
