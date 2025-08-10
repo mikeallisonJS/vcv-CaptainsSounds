@@ -35,6 +35,35 @@
 			}
 		  }
 		},
+        {
+          "label": "Build (macOS) - install to Rack plugin folder",
+          "type": "shell",
+          "command": "make install",
+          "options": {
+            "cwd": "${workspaceFolder}"
+          },
+          "group": {
+            "kind": "build"
+          },
+          "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+          },
+          "problemMatcher": {
+            "owner": "cpp",
+            "fileLocation": ["absolute"],
+            "pattern": {
+                "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                "file": 1,
+                "line": 2,
+                "column": 3,
+                "severity": 4,
+                "message": 5
+            }
+          }
+        },
 		{
 		  "label": "Clean project directories",
 		  "type": "shell",
@@ -68,6 +97,75 @@
 				"message": 5
 			}
 		  }
-		}
+        },
+        {
+          "label": "Clean (macOS)",
+          "type": "shell",
+          "command": "make clean",
+          "options": {
+            "cwd": "${workspaceFolder}"
+          },
+          "group": {
+            "kind": "build"
+          },
+          "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+          },
+          "problemMatcher": {
+            "owner": "cpp",
+            "fileLocation": ["absolute"],
+            "pattern": {
+                "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                "file": 1,
+                "line": 2,
+                "column": 3,
+                "severity": 4,
+                "message": 5
+            }
+          }
+        },
+        {
+          "label": "Package (macOS) - Create .vcvplugin",
+          "type": "shell",
+          "command": "make dist",
+          "options": {
+            "cwd": "${workspaceFolder}"
+          },
+          "group": {
+            "kind": "build"
+          },
+          "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+          },
+          "problemMatcher": []
+        },
+        {
+          "label": "Install .vcvplugin (macOS)",
+          "type": "shell",
+          "command": "/bin/bash",
+          "args": [
+            "-lc",
+            "VERSION=$(sed -n 's/.*\"version\"[[:space:]]*:[[:space:]]*\"\([0-9.]*\)\".*/\\1/p' plugin.json); ARCH=$(uname -m); if [ \"$ARCH\" = \"arm64\" ]; then MARCH=mac-arm64; else MARCH=mac-x64; fi; make dist && open \"dist/CaptainsSounds-$VERSION-$MARCH.vcvplugin\""
+          ],
+          "options": {
+            "cwd": "${workspaceFolder}"
+          },
+          "group": {
+            "kind": "build"
+          },
+          "presentation": {
+            "echo": true,
+            "reveal": "always",
+            "focus": false,
+            "panel": "shared"
+          },
+          "problemMatcher": []
+        }
 	  ]
 	}

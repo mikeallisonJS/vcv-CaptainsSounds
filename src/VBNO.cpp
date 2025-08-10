@@ -20,8 +20,10 @@ void VBNO::process(const ProcessArgs& args) {
     // Use Note CV if connected
     if (inputs[NOTE_INPUT].isConnected()) {
         noteInputV = inputs[NOTE_INPUT].getVoltage();
-        float note = round(modf(noteInputV, nullptr) * 12) + 3;
-        notesFromA = note <= 11 ? note : note + 9;
+        float integerPart = 0.f;
+        float fractionalPart = modff(noteInputV, &integerPart);
+        float note = roundf(fractionalPart * 12.f) + 3.f;
+        notesFromA = note <= 11.f ? note : note + 9.f;
     } else {
         notesFromA = params[NOTE_PARAM].getValue();
     }

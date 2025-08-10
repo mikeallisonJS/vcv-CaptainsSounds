@@ -1,0 +1,67 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+roject context
+- This is a VCV Rack plugin with modules: Blanks, Dip (filters), Nip (limiter), IMO/MIO (utility), VBNO (oscillator), Pow.
+- Build is driven by Makefile and Rack’s `plugin.mk`. C++17 is required. Dependencies are vendored under `dep/` (e.g., MoogLadders).
+- Key files:
+  - Build: `Makefile` (includes `$(RACK_DIR)/plugin.mk`)
+  - Plugin entry: `src/plugin.cpp` (registers models via `p->addModel(...)`)
+  - Manifest: `plugin.json` (add module entries here)
+  - Common: `src/captainssounds.hpp`, `src/dsp.hpp`, `src/CSModule.hpp`, `src/CSModuleWidget.hpp`
+  - Module examples: `src/Dip.*`, `src/VBNO.*`
+
+Commands and environment
+- Always use absolute paths when proposing commands.
+- Build with `make` from the project root. Do NOT suggest npm/yarn/pnpm. If Node tasks are ever needed, prefer nx (not npm).
+- Set `RACK_DIR` to the Rack SDK or Rack source directory before building (the Makefile defaults to `../..` but prefer explicit).
+  - Example:
+    - `export RACK_DIR=/absolute/path/to/Rack-SDK`
+    - `cd /Users/mike/Development/vcv-CaptainsSounds && make | cat`
+    - `cd /Users/mike/Development/vcv-CaptainsSounds && make dist | cat`
+- When proposing commands, add non-interactive flags and avoid pagers. Use `| cat` to prevent pager usage.
+
+Coding conventions
+- Language: C++17. Keep code readable with meaningful names; early returns; shallow nesting; guard edge cases.
+- Namespaces: use `namespace captainssounds { ... }` and reuse helpers from `captainssounds.hpp`.
+- Module structure:
+  - Derive DSP from `CSModule` (provides DBug helpers and constants).
+  - Derive UI from `CSModuleWidget` or variants for layout helpers.
+  - Use enums `ParamIds`, `InputIds`, `OutputIds` (UPPER_SNAKE members) and keep `NUM_*` terminators.
+  - Configure with `config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS)` and `configParam(...)`.
+  - For frequency-like controls, use `EQParamQuantity` and helpers `decimalToHz(...)` / `hzToDecimal(...)`.
+  - Use voltage clamp helpers `clamp10VUnipolar`, `clamp10VBipolar`, `clamp5VBipolar`.
+  - For oscillators, refer to `Oscillator` utilities (`calculateFrequencyFromA4Tuning`, wave builders).
+- UI conventions:
+  - Set `hp` before layout.
+  - Use `setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Name.svg")))`.
+  - Add screws with `addScrews()` and controls via `addParamKnob`, `addParamKnobWithInput`, `addInputJack`, `addOutputJack`.
+- Registration:
+  - Define `Model* modelX = createModel<X, XWidget>("Slug");` in the module .cpp.
+  - Add `extern Model* modelX;` in the module header (already included by `plugin.hpp` if structured like existing modules).
+  - Register in `src/plugin.cpp` → `p->addModel(modelX);`.
+  - Add module entry to `plugin.json` with `slug`, `name`, `description`, `tags`.
+- Assets:
+  - Place front panels in `res/` (SVG). Fonts/images live under `res/fonts` and `res/**`.
+  - `make dist` includes `res/*.svg`, `res/**/*.svg`, Nunito font, and LICENSE files per Makefile rules.
+- Dependencies:
+  - Prefer vendored, static-friendly code under `dep/`. Avoid shared libs and system-specific link flags.
+  - The Makefile fetches MoogLadders; keep similar patterns if adding deps.
+
+Quality and changes
+- Keep edits minimal and consistent with the existing style/formatting.
+- Avoid gratuitous refactors or reformatting unrelated code.
+- If enabling DBug, note it’s currently commented out in `plugin.cpp`; ensure expander linkage checks (e.g., `modelDBug`) are consistent before enabling.
+- When adding a new module, deliver all required edits together:
+  1) New `X.hpp`/`X.cpp` with DSP and Widget
+  2) Panel SVG in `res/X.svg`
+  3) Register in `src/plugin.cpp`
+  4) Update `plugin.json`
+  5) Verify build with `make`
+
+Response style
+- Be concise and actionable. Use bullet lists and short code blocks when necessary.
+- Cite file paths with backticks. Prefer absolute paths in commands.
+- Do not suggest Node package managers here; build is Makefile-centric.

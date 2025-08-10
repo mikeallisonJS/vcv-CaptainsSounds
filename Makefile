@@ -1,12 +1,32 @@
-# If RACK_DIR is not defined when calling the Makefile, default to two directories above
-RACK_DIR ?= ../..
+# Resolve RACK_DIR if not provided
+ifndef RACK_DIR
+  # Prefer Rack-SDK in project root if present
+  ifneq (,$(wildcard Rack-SDK/plugin.mk))
+    RACK_DIR := Rack-SDK
+  else
+    # Fallback to two directories above (typical when building inside Rack/plugins)
+    RACK_DIR := ../..
+  endif
+endif
+
+# Validate SDK matches host platform
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+  EXPECTED_RACK_LIB := $(RACK_DIR)/libRack.dylib
+else
+  EXPECTED_RACK_LIB := $(RACK_DIR)/libRack.so
+endif
+
+ifeq (,$(wildcard $(EXPECTED_RACK_LIB)))
+  $(error Rack SDK at '$(abspath $(RACK_DIR))' does not contain '$(notdir $(EXPECTED_RACK_LIB))' (host: $(UNAME_S)). Point RACK_DIR to the correct platform SDK.)
+endif
 
 moogFilters := dep/MoogLadders-master/src
 
 # FLAGS will be passed to both the C and C++ compiler
 FLAGS += -I$(moogFilters)
 CFLAGS +=
-CXXFLAGS =  -std=c++17
+CXXFLAGS += -std=c++17
 
 # Careful about linking to shared libraries, since you can't assume much about the user's environment and library search path.
 # Static libraries are fine, but they should be added to this plugin's build system.

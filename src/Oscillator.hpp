@@ -66,7 +66,10 @@ namespace captainssounds {
 
         template <typename T>
         T triangle(T phase) {
-            return 1 - 4 * fmin(fabs(.5 - modf(phase + .25f, nullptr)), fabs(.5 - modf(phase + 1.25f, nullptr)));
+            T intPart = 0;
+            T frac1 = modf(phase + .25f, &intPart);
+            T frac2 = modf(phase + 1.25f, &intPart);
+            return 1 - 4 * fmin(fabs(.5 - frac1), fabs(.5 - frac2));
         }
     };
 }  // namespace captainssounds

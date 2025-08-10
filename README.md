@@ -97,3 +97,30 @@ All donations are extremely appreciated.
 Please visit [captainofbass.com/donate](https://captainofbass.com/donate) to donate directly to the author.
 
  If you wish to become an official sponsor, please email [mike@captainssounds.com](mailto:mike@captainssounds.com) for more information.
+
+## macOS development
+
+Prereqs:
+
+- Install Xcode Command Line Tools
+- Download and unzip the Rack SDK (2.x) somewhere on disk and set the environment variable once in your shell profile:
+
+```sh
+export RACK_DIR=/absolute/path/to/Rack-SDK
+```
+
+Build and install to your local Rack plugins folder:
+
+```sh
+cd /Users/mike/Development/vcv-CaptainsSounds
+make install
+```
+
+Create a distributable zip:
+
+```sh
+cd /Users/mike/Development/vcv-CaptainsSounds
+make dist
+```
+
+VS Code tasks are provided for macOS: select "Build (macOS) - install to Rack plugin folder" from the Run and Debug panel or from the command palette.

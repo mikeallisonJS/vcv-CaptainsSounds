@@ -47,6 +47,19 @@
                 "ignoreFailures": true
             }
         ]
+      },
+      {
+        "name": "Launch Rack (macOS)",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "/Applications/VCV Rack 2.app/Contents/MacOS/Rack",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "lldb",
+        "preLaunchTask": "Build (macOS) - install to Rack plugin folder"
       }
     ]
   }
