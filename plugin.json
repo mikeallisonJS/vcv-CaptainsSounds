@@ -11,7 +11,7 @@
   "manualUrl": "",
   "sourceUrl": "https://github.com/mikeallisonJS/vcv-CaptainsSounds",
   "donateUrl": "https://captainofbass.com/donate",
-  "changelogUrl": "https://github.com/mikeallisonJS/vcv-CaptainsSounds/CHANGELOG.md",
+  "changelogUrl": "https://github.com/mikeallisonJS/vcv-CaptainsSounds/blob/main/CHANGELOG.md",
   "modules": [
     {
       "slug": "Blank901",
