@@ -1,18 +1,29 @@
+name: Development
+
 on:
   push:
     branches:
-    - master
+      - main
   pull_request:
     branches:
-    - master
-name: Development
+      - main
+
 env:
   RACK_SDK_VERSION: 2.6.4
+
 jobs:
-  buildLinux:
+  build-linux:
     name: Build Linux
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: Build Linux
-      uses: ./.github/actions/build_linux
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Linux
+        uses: ./.github/actions/build_linux
+
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: plugin-linux
+          path: dist/*.zip

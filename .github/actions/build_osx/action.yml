@@ -1,0 +1,6 @@
+name: "Build VCV Rack Plugin (macOS)"
+description: "Cross-compiles the VCV Rack plugin for macOS using osxcross"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+

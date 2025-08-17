@@ -5,8 +5,8 @@ set -eu
 export RACK_DIR=${GITHUB_WORKSPACE}/Rack-SDK
 export RACK_USER_DIR=${GITHUB_WORKSPACE}
 
-export CC=x86_64-w64-mingw32-gcc-posix
-export CXX=x86_64-w64-mingw32-g++-posix
+export CC=x86_64-w64-mingw32-gcc
+export CXX=x86_64-w64-mingw32-g++
 export STRIP=x86_64-w64-mingw32-strip
 
 git submodule update --init --recursive
