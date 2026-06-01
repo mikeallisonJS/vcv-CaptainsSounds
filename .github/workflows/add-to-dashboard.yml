@@ -1,0 +1,24 @@
+name: Add issues and PRs to project dashboard
+
+on:
+  issues:
+    types:
+      - opened
+      - reopened
+      - transferred
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+
+jobs:
+  add-to-project:
+    name: Add to Homelab / Code Dashboard
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add issue or PR to GitHub Project
+        uses: actions/add-to-project@v1.0.2
+        with:
+          project-url: https://github.com/users/mikeallisonJS/projects/6
+          github-token: ${{ secrets.ADD_TO_PROJECT_PAT }}
