@@ -1,0 +1,6 @@
+name: "Build VCV Rack Plugin (Linux)"
+description: "Builds the VCV Rack plugin for Linux using the Rack SDK"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+

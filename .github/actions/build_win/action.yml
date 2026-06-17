@@ -1,0 +1,6 @@
+name: "Build VCV Rack Plugin (Windows)"
+description: "Builds the VCV Rack plugin for Windows using mingw"
+runs:
+  using: "docker"
+  image: "Dockerfile"
+
